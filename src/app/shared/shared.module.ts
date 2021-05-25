@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { InputRangeComponent } from './components/input-range/input-range.component';
 import { InputTextComponent } from './components/input-text/input-text.component';
 import { ButtonFlatDirective } from './directives/button-flat.directive';
+import { OptionsWrapComponent } from './components/options-wrap/options-wrap.component';
 
 
 
@@ -11,8 +12,8 @@ import { ButtonFlatDirective } from './directives/button-flat.directive';
   declarations: [
     InputRangeComponent,
     InputTextComponent,
-    ButtonFlatDirective
-  ],
+    ButtonFlatDirective,
+    OptionsWrapComponent],
   imports: [
     CommonModule,
     FormsModule
@@ -20,7 +21,8 @@ import { ButtonFlatDirective } from './directives/button-flat.directive';
   exports:[
     InputRangeComponent,
     InputTextComponent,
-    ButtonFlatDirective
+    ButtonFlatDirective,
+
   ]
 })
 export class SharedModule { }

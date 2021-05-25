@@ -1,0 +1,19 @@
+main{
+    background-color: rgb(245, 245, 245);
+    height: 100vh;
+    width: 100%;
+    padding: 4rem 2rem;
+    overflow-y: auto;
+
+    .options-inputs{
+        position: relative;
+        width: 100%;
+    }
+
+    .buttons{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
+}

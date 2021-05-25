@@ -1,0 +1,40 @@
+<main>
+    <div class="options-inputs">
+        <app-input-text>
+
+        </app-input-text>
+        <app-input-range [min]="0" [max]="1000" [(inputModel)]="options.populationSize">
+            Population size
+        </app-input-range>
+        <app-input-range [min]="0" [max]="options.populationSize/2" [(inputModel)]="options.startingInfected">
+            Starting infected
+        </app-input-range>
+        <app-input-range [min]="0" [max]="10" [step]="0.1" [(inputModel)]="options.infectionRate">
+            Infection rate
+        </app-input-range>
+        <app-input-range [min]="0" [max]="1000" [(inputModel)]="options.mortalityRate">
+            Mortality Rate
+        </app-input-range>
+        <app-input-range [min]="0" [max]="1000" [(inputModel)]="options.timeToDeath">
+            Time to possible death
+        </app-input-range>
+        <app-input-range [min]="0" [max]="1000" [(inputModel)]="options.timeToRecover">
+            Time to recover
+        </app-input-range>
+        <app-input-range [min]="0" [max]="360" [(inputModel)]="options.maxSimulationDays">
+            Simulation time
+        </app-input-range>
+        <app-input-range [min]="0" [max]="500" [(inputModel)]="simulationSpeed">
+            Simulation slowdown
+        </app-input-range>
+    </div>
+
+    <div class="buttons">
+        <button>Start</button>
+        <button>Reset</button>
+        <button *ngIf="!stopSimulation">Stop</button>
+        <button *ngIf="stopSimulation">Resume</button>
+        <button>Save</button>        
+    </div>
+
+</main>
