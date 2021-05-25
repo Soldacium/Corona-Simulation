@@ -1,0 +1,15 @@
+nav{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+
+    a{
+        text-decoration: none;
+        color: var(--colorText);
+        font-size: 1.3rem;
+        margin: 0.3rem 1rem;
+    }
+}
