@@ -19,6 +19,12 @@ export class InputRangeComponent implements OnInit {
   @Input()
   step = 1;
 
+  @Input()
+  icon = '';
+
+  @Input()
+  disabled = false;
+
   @Output() onclick:
   EventEmitter<Event> = new EventEmitter<Event>();
 
@@ -31,8 +37,8 @@ export class InputRangeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    for(let i = 0; i < this.numOfBreakpoints + 1; i++){
-      this.breakpoints.push(Number((this.max*i/(this.numOfBreakpoints)).toPrecision(2)));
-    }
+    const medium = this.max / 2;
+    this.breakpoints.push(this.min, medium, this.max);
+
   }
 }

@@ -12,8 +12,9 @@ export class OptionsComponent implements OnInit {
   population = 100;
 
   simulationSpeed = 30;
-  stopSimulation = true;
+  pauseSimulation = true;
   simulationLocked = false;
+  asyncChanges = true;
 
   options: SimulationOptions = {
     name: '',
@@ -24,22 +25,30 @@ export class OptionsComponent implements OnInit {
     timeToRecover: 20,
     timeToDeath: 10,
     maxSimulationDays: 100
-  }
-
-
+  };
 
   constructor(private simulationService: SimulationService) { }
 
-  reset(){
+  start(): void{
+    this.simulationLocked = true;
+    this.pauseSimulation = false;
+  }
+
+  reset(): void{
+    this.simulationLocked = false;
+    this.pauseSimulation = true;
+  }
+
+  save(): void{
 
   }
 
-  save(){
-
+  pause(): void{
+    this.pauseSimulation = true;
   }
 
-  resume(){
-
+  resume(): void{
+    this.pauseSimulation = false;
   }
 
   ngOnInit(): void {

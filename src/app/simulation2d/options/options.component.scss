@@ -1,13 +1,40 @@
 main{
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(255, 255, 255);
     height: 100vh;
     width: 100%;
-    padding: 4rem 2rem;
-    overflow-y: auto;
+    box-shadow: 2px 0 3px 0px rgba(0, 0, 0, 0.089);
+    
+    position: relative;
 
     .options-inputs{
-        position: relative;
+        position: absolute;
         width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 4rem 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        app-input-text{
+            width: 100%;
+        }
+
+        app-input-range{
+            position: relative;
+            width: 100%;
+
+            .input-label{
+                display: flex;
+                align-items: center;
+
+                img{
+                    height: 1rem;
+                    margin-right: 0.5rem;
+                }
+            }
+        }
     }
 
     .buttons{
@@ -15,5 +42,75 @@ main{
         width: 100%;
         bottom: 0;
         left: 0;
+        height: 4rem;
+        z-index: 100;
+
+        >div{
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            button{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .button-reset{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 4rem !important;
+        }
+    }
+}
+
+// to component
+.checkbox{
+    display: block;
+    margin: 1rem 0;
+
+    input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+    }  
+    label {
+        position: relative;
+        cursor: pointer;
+
+        &:before {
+            content:'';
+            -webkit-appearance: none;
+            background-color: transparent;
+            border: 3px solid #242424;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+    }
+
+    input:checked + label:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 9px;
+        width: 6px;
+        height: 14px;
+        border: solid #292929;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
     }
 }

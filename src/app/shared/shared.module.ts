@@ -18,7 +18,7 @@ import { OptionsWrapComponent } from './components/options-wrap/options-wrap.com
     CommonModule,
     FormsModule
   ],
-  exports:[
+  exports: [
     InputRangeComponent,
     InputTextComponent,
     ButtonFlatDirective,

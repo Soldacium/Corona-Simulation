@@ -6,15 +6,15 @@ import { Human } from '@shared/models/human.model';
 })
 export class SimulationService {
 
-  population: Human[] = []
+  population: Human[] = [];
 
   constructor() { }
 
-  newSimulation(){
+  newSimulation(): void{
 
   }
 
-  changeOptions(){
-    
+  changeOptions(): void{
+
   }
 }
