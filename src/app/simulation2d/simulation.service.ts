@@ -12,7 +12,6 @@ export class SimulationService {
   population: Human[] = [];
   pauseSimulation = true;
   simulationDays = 0;
-  simulationSlowdown = 1000;
 
   private options: SimulationOptions = {
     name: '',
@@ -22,7 +21,8 @@ export class SimulationService {
     mortalityRate: 0.2,
     timeToRecover: 10,
     timeToDeath: 9,
-    maxSimulationDays: 100
+    maxSimulationDays: 100,
+    simulationSlowdown: 1000
   };
 
   dailyStats: DailyStatistics[] = [
@@ -63,6 +63,21 @@ export class SimulationService {
     return [...this.chartData];
   }
 
+  getPieChartData(dayNumber: number){
+    const pieChartData: any[] = [];
+    const dayStats = this.dailyStats[dayNumber];
+
+    Object.entries(dayStats).forEach(
+      ([key, value]) => {
+        pieChartData.push({
+          name: key,
+          value
+        });
+      }
+    );
+    return pieChartData;
+  }
+
   newSimulation(): void{
     this.pauseSimulation = true;
     this.dailyStats = [];
@@ -95,7 +110,7 @@ export class SimulationService {
   async startSimulation(): Promise<void>{
     this.pauseSimulation = false;
     while (!this.pauseSimulation && this.simulationDays < this.options.maxSimulationDays){
-      await this.wait(this.simulationSlowdown).then(res => {
+      await this.wait(this.options.simulationSlowdown).then(res => {
         this.nextDay();
       });
     }

@@ -6,6 +6,7 @@ import { InputTextComponent } from './components/input-text/input-text.component
 import { ButtonFlatDirective } from './directives/button-flat.directive';
 import { OptionsWrapComponent } from './components/options-wrap/options-wrap.component';
 import { ButtonStrokedDirective } from './directives/button-stroked.directive';
+import { ButtonThreeComponent } from './components/button-three/button-three.component';
 
 
 
@@ -15,7 +16,9 @@ import { ButtonStrokedDirective } from './directives/button-stroked.directive';
     InputTextComponent,
     ButtonFlatDirective,
     OptionsWrapComponent,
-    ButtonStrokedDirective],
+    ButtonStrokedDirective,
+    ButtonThreeComponent
+  ],
   imports: [
     CommonModule,
     FormsModule
@@ -24,7 +27,8 @@ import { ButtonStrokedDirective } from './directives/button-stroked.directive';
     InputRangeComponent,
     InputTextComponent,
     ButtonFlatDirective,
-    ButtonStrokedDirective
+    ButtonStrokedDirective,
+    ButtonThreeComponent
 
   ]
 })

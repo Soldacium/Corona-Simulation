@@ -1,4 +1,5 @@
-$fillColor: rgb(117, 117, 117);
+$fillColor: rgb(139, 139, 139);
+$sliderHeight: 1.4rem;
 
 .slidecontainer {
     width: 100%;
@@ -38,8 +39,8 @@ $fillColor: rgb(117, 117, 117);
     //border: 2px solid $fillColor;
 
     img{
-        height: 1.75rem;
-        width: 1.75rem;
+        height: 1.5rem;
+        width: 1.5rem;
         filter: invert(100%);
     }
 }
@@ -48,7 +49,7 @@ $fillColor: rgb(117, 117, 117);
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 1.4rem;
+    height: $sliderHeight;
     background: #d3d3d3;
     outline: none;
     opacity: 1;
@@ -69,11 +70,12 @@ $fillColor: rgb(117, 117, 117);
 
     &::-webkit-slider-runnable-track {
         background: rgb(44, 44, 44);  
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.247) inset;
     }
     
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
-        height: 40px;
+        height: $sliderHeight;
         width: 0px;
         background: rgb(99, 99, 99);
         box-shadow: -100vw 0 0 100vw $fillColor;
@@ -81,13 +83,13 @@ $fillColor: rgb(117, 117, 117);
     }
     
     &::-moz-range-track {
-        height: 40px;
+        height: $sliderHeight;
         background: #ddd;   
     }
     
     &::-moz-range-thumb {
         background: #fff;
-        height: 40px;
+        height: $sliderHeight;
         width: 1px;
         border-radius: 0 !important;
         box-shadow: -100vw 0 0 100vw var(--colorAccent1);
@@ -100,7 +102,7 @@ $fillColor: rgb(117, 117, 117);
     
     &::-ms-thumb { 
         background: #fff;
-        height: 40px;
+        height: $sliderHeight;
         width: 20px;
         box-sizing: border-box;
     }
@@ -116,7 +118,7 @@ $fillColor: rgb(117, 117, 117);
     &::-ms-track { 
         background: #ddd;
         color: transparent;
-        height: 40px;
+        height: $sliderHeight;
         border: none;
     }
     
@@ -135,7 +137,7 @@ $fillColor: rgb(117, 117, 117);
     pointer-events: none;
 
     span{
-        width: 1px; 
+        width: 1px;
         background-color: #999; 
         transform: translate(25%,0);
     }

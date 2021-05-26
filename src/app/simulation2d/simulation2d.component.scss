@@ -4,10 +4,14 @@ main{
     display: flex;
     flex-wrap: wrap;
 
+    >div{
+        height: 100%;
+    }
+
     .options{
-        flex: 2 1 10rem;
+        width: 500px;
     }
     .display{
-        flex: 7 1 20rem;
+        width: calc(100% - 500px);
     }
 }

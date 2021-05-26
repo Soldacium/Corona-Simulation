@@ -1,0 +1,41 @@
+button{
+    position: relative;
+    width: 10rem;
+    height: 2.5rem;
+    // border: 3px solid var(--colorSecondary);
+    background-color: var(--colorSecondary);
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    margin: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+
+    .background{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s ease;
+        background-color: var(--colorPrimary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+
+    &:hover{
+        .background{
+            left: 0rem;
+            top: 0.3rem;
+        }
+    }
+
+    &.active{
+        .background{
+            left: 0rem;
+            top: 0.3rem;
+        }
+    }
+}

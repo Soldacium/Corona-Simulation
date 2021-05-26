@@ -2,8 +2,24 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100%;
-}
+    width: 100%;
+    padding: 8rem 6rem;
 
-ngx-charts-line-chart{
+    
+    .day-input{
+        padding: 1rem 0.5rem;
+        width: 4rem;
+        font-size: 1rem;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.116);
+        border-radius: 0.25rem;
+        border: none;
+    }
+
+    .chart{
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
 }

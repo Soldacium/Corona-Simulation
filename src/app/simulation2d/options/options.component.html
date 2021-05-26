@@ -1,30 +1,31 @@
 <main>
+    
     <div class="options-inputs">
-        <app-input-text [label]="'Simulation name'" [placeholder]="'Simulation name'" [(inputModel)]="options.name">
+        <app-input-text [label]="'Simulation name'" [placeholder]="'Simulation name'" [(inputModel)]="options.name" [darkMode]="true">
 
         </app-input-text>
-        <app-input-range [icon]="'assets/icons/population.svg'" [disabled]="simulationLocked" [min]="10" [max]="1000" [(inputModel)]="options.populationSize">
+        <app-input-range [icon]="'assets/icons/population.svg'" [disabled]="simulationLocked" [min]="10" [max]="10000" [(inputModel)]="options.populationSize">
             Population size  
         </app-input-range>
         <app-input-range [icon]="'assets/icons/infected.svg'" [disabled]="simulationLocked" [min]="1" [max]="options.populationSize/2" [(inputModel)]="options.startingInfected">
             Starting infected
         </app-input-range>
-        <app-input-range [icon]="'assets/icons/virus.svg'" [min]="0.1" [max]="10" [step]="0.1" [(inputModel)]="options.infectionRate">
+        <app-input-range [icon]="'assets/icons/virus.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="0.1" [max]="10" [step]="0.1" [(inputModel)]="options.infectionRate">
             Infection rate
         </app-input-range>
-        <app-input-range [icon]="'assets/icons/skull.svg'" [min]="0.01" [max]="1" [step]="0.01" [(inputModel)]="options.mortalityRate">
+        <app-input-range [icon]="'assets/icons/skull.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="0.01" [max]="1" [step]="0.01" [(inputModel)]="options.mortalityRate">
             Mortality Rate
         </app-input-range>
-        <app-input-range [icon]="'assets/icons/calendarDeath.svg'" [min]="1" [max]="60" [(inputModel)]="options.timeToDeath">
+        <app-input-range [icon]="'assets/icons/tomb.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="1" [max]="60" [(inputModel)]="options.timeToDeath">
             Time to possible death
         </app-input-range>
-        <app-input-range [icon]="'assets/icons/recovery.svg'" [min]="1" [max]="60" [(inputModel)]="options.timeToRecover">
+        <app-input-range [icon]="'assets/icons/heart.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="1" [max]="60" [(inputModel)]="options.timeToRecover">
             Time to recover
         </app-input-range>
         <app-input-range [icon]="'assets/icons/calendar.svg'" [disabled]="simulationLocked" [min]="10" [max]="360" [(inputModel)]="options.maxSimulationDays">
             Simulation time
         </app-input-range>
-        <app-input-range [icon]="'assets/icons/speed.svg'" [min]="10" [max]="500" [(inputModel)]="simulationSpeed">
+        <app-input-range [icon]="'assets/icons/stopwatch.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="10" [max]="3000" [(inputModel)]="options.simulationSlowdown">
             Simulation slowdown
         </app-input-range>
         <div class="checkbox">

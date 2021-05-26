@@ -30,11 +30,9 @@ export class ButtonFlatDirective {
     buttonStyle.padding = '0.5rem 1rem';
     buttonStyle.transition = '0.2s ease background-color';
     buttonStyle.cursor = 'pointer';
-    // buttonStyle['border-radius'] = '0.5rem';
-    // buttonStyle.border = '2px solid var(--colorAccent3)';
     buttonStyle.color = 'white';
-    if(this.active){
-      buttonStyle.backgroundColor = '#232323'
+    if (this.active){
+      buttonStyle.backgroundColor = '#232323';
     }
   }
 }

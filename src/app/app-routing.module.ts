@@ -19,6 +19,12 @@ const routes: Routes = [
       m.Simulation3dModule
     )
   },
+  {
+    path: 'saved-simulations',
+    loadChildren: () => import('@savedSimulations/saved-simulations.module').then(m => 
+      m.SavedSimulationsModule
+    )
+  }
 ];
 
 @NgModule({

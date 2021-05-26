@@ -7,4 +7,5 @@ export interface SimulationOptions {
     timeToRecover: number;
     timeToDeath: number;
     maxSimulationDays: number;
+    simulationSlowdown: number;
 }

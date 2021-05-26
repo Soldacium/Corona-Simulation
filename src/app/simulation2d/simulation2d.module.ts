@@ -7,6 +7,7 @@ import { OptionsComponent } from './options/options.component';
 import { ChartDisplayComponent } from './chart-display/chart-display.component';
 import { SharedModule } from '@shared/shared.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,6 +21,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     NgxChartsModule,
     RouterModule.forChild(routes)
   ]

@@ -1,17 +1,58 @@
 <main>
-    <ngx-charts-line-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [legend]="legend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxis]="xAxis"
-    [yAxis]="yAxis"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [timeline]="timeline"
-    [results]="arr"
-    >
-    </ngx-charts-line-chart>
+    <input type="number" class="day-input" min="0" max="5" [(ngModel)]="examinedDay" (ngModelChange)="getPieChartData()">
+    <div class="chart">
+        <!--
+  
+        <ngx-charts-area-chart-normalized
+        [scheme]="colorScheme"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="arr"
+        >
+        </ngx-charts-area-chart-normalized>   
+        
+        <ngx-charts-line-chart
+        [scheme]="colorScheme"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="arr"
+        >
+        </ngx-charts-line-chart>         
+        -->
+
+        <ngx-charts-advanced-pie-chart
+        [scheme]="colorScheme"
+        [results]="pieChartArr"
+        [gradient]="true"
+        >
+        </ngx-charts-advanced-pie-chart>
+
+    </div>
+    <div class="buttons">
+        <app-button-three>
+            Regular timeline
+        </app-button-three>
+        <app-button-three>
+            Normalized timeline
+        </app-button-three>
+        <app-button-three>
+            Pie chart
+        </app-button-three>
+        <app-button-three>
+            Bar chart
+        </app-button-three>
+        <button (click)="getPieChartData()">Get pie</button>
+    </div>
+
 </main>
 

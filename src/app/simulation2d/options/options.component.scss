@@ -2,8 +2,7 @@ main{
     background-color: rgb(34, 34, 34);
     height: 100vh;
     width: 100%;
-    border-right: 2px solid rgb(240, 240, 240);
-    
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
     position: relative;
 
     .options-inputs{
@@ -74,6 +73,7 @@ main{
 .checkbox{
     display: block;
     margin: 1rem 0;
+    color: white;
 
     input {
         padding: 0;
@@ -91,7 +91,7 @@ main{
             content:'';
             -webkit-appearance: none;
             background-color: transparent;
-            border: 3px solid #242424;
+            border: 3px solid #ffffff;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
             padding: 10px;
             display: inline-block;
@@ -110,7 +110,7 @@ main{
         left: 9px;
         width: 6px;
         height: 14px;
-        border: solid #292929;
+        border: solid #ffffff;
         border-width: 0 3px 3px 0;
         transform: rotate(45deg);
     }

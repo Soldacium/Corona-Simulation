@@ -39,6 +39,5 @@ export class InputRangeComponent implements OnInit {
   ngOnInit(): void {
     const medium = this.max / 2;
     this.breakpoints.push(this.min, medium, this.max);
-
   }
 }

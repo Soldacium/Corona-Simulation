@@ -9,9 +9,10 @@ import { SimulationService } from '@simulation2d/simulation.service';
 export class ChartDisplayComponent implements OnInit {
 
   arr: any[] = [];
-  view: [number, number] = [window.innerWidth * 2 / 3, window.innerHeight * 2 / 3];
+  examinedDay!: number;
 
-  // options
+  pieChartArr: any[] = [];
+
   legend = true;
   showLabels = true;
   animations = true;
@@ -19,7 +20,7 @@ export class ChartDisplayComponent implements OnInit {
   yAxis = true;
   showYAxisLabel = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Year';
+  xAxisLabel = 'Day';
   yAxisLabel = 'Population';
   timeline = true;
 
@@ -38,6 +39,13 @@ export class ChartDisplayComponent implements OnInit {
 
     this.simulationService.LineChartDataEmmiter.subscribe((data: any) => {
       this.arr = data;
+      console.log(this.arr);
     });
   }
+
+  getPieChartData(): void{
+    console.log(this.examinedDay);
+    this.pieChartArr = this.simulationService.getPieChartData(this.examinedDay);
+  }
+
 }

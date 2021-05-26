@@ -24,7 +24,8 @@ export class OptionsComponent implements OnInit {
     mortalityRate: 0.3,
     timeToRecover: 20,
     timeToDeath: 10,
-    maxSimulationDays: 100
+    maxSimulationDays: 100,
+    simulationSlowdown: 100
   };
 
   constructor(private simulationService: SimulationService) {
@@ -60,6 +61,10 @@ export class OptionsComponent implements OnInit {
   resume(): void{
     this.pauseSimulation = false;
     this.simulationService.startSimulation();
+  }
+
+  saveSimulation(): void{
+
   }
 
 

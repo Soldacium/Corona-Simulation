@@ -23,6 +23,7 @@
     "paths": {
       "@simulation3d/*": ["app/simulation3d/*"],
       "@simulation2d/*": ["app/simulation2d/*"],
+      "@savedSimulations/*": ["app/saved-simulations/*"],
       "@services/*": ["app/services/*"],
       "@shared/*": ["app/shared/*"],
       "@appRoot/*": ["app/*"],
