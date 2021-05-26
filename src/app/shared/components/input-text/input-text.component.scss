@@ -3,7 +3,6 @@
     padding: 1.2rem 1rem 0.5rem 1rem ;
     margin-top: 1rem;
     width: 100%;
-    background-color: rgb(250, 250, 250);
     border-radius: 0rem;
     overflow: hidden;
 }
@@ -17,7 +16,7 @@
     width: 100%;
     border: 0;
     outline: 0;
-    font-size: 1rem;
+    font-size: 1.6rem;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
@@ -52,8 +51,8 @@
     display: block;
     transition: 0.2s;
     font-size: 0.8rem;
-    color: #11998e;
-    font-weight: 600;
+    color: gray;
+    font-weight: 500;
 }
 
 /* reset input */

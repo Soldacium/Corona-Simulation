@@ -1,8 +1,8 @@
 main{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(34, 34, 34);
     height: 100vh;
     width: 100%;
-    box-shadow: 2px 0 3px 0px rgba(0, 0, 0, 0.089);
+    border-right: 2px solid rgb(240, 240, 240);
     
     position: relative;
 
@@ -19,6 +19,7 @@ main{
 
         app-input-text{
             width: 100%;
+            margin-bottom: 2rem;
         }
 
         app-input-range{

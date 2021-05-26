@@ -2,6 +2,12 @@
 
 This project's purpose is to show the process of some sort of virus outbreak in a given population and options chosen by the user. After simulating X days and finishing the whole process, the user can save the result to shared database for later use by other users.
 
+## Game rules
+First: all infected are alive and spread virus
+Second: now we add days being infected to all sick people. The infections are realistic, that is, unless someone is guaranteed to die (Mortality = 1), he "rolls" for his life each day. This way, statistically, still x% people die 
+while giving them a chance to recover.
+
+
 ## Simulations
 
 #### Simulation2d

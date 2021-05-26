@@ -6,6 +6,8 @@ import { routes } from './routes-simulation2d';
 import { OptionsComponent } from './options/options.component';
 import { ChartDisplayComponent } from './chart-display/chart-display.component';
 import { SharedModule } from '@shared/shared.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 
 
@@ -13,11 +15,12 @@ import { SharedModule } from '@shared/shared.module';
   declarations: [
     Simulation2dComponent,
     OptionsComponent,
-    ChartDisplayComponent
+    ChartDisplayComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
+    NgxChartsModule,
     RouterModule.forChild(routes)
   ]
 })

@@ -1,13 +1,15 @@
-$fillColor: rgb(58, 58, 58);
+$fillColor: rgb(117, 117, 117);
 
 .slidecontainer {
     width: 100%;
     position: relative;
     padding: 0.4rem 0;
+
     &.disabled{
-        opacity: 0.5;
+        opacity: 0.3;
         pointer-events: none;
     }
+    color: white;
 }
 
 .text{
@@ -18,29 +20,27 @@ $fillColor: rgb(58, 58, 58);
     pointer-events: none;
     font-weight: 500;
     transition: 0.2s;
-    color: var(--colorText);
     margin-bottom: 0.3rem;
     opacity: 1;
+    left: 0.75rem;
 }
 
 .icon{
     position: absolute;
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 50%;
+    top: -0.25rem;
     left: -2.5rem;
-    border-radius: 50%;
-    background-color: white;
-    transform: translate(0,-50%);
-    border: 3px solid $fillColor;
-    
+    //background-color: rgb(37, 37, 37);
+    //border: 2px solid $fillColor;
 
     img{
-        height: 1.5rem;
-        width: 1.5rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        filter: invert(100%);
     }
 }
 
@@ -48,7 +48,7 @@ $fillColor: rgb(58, 58, 58);
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 1.6rem;
+    height: 1.4rem;
     background: #d3d3d3;
     outline: none;
     opacity: 1;
@@ -68,7 +68,7 @@ $fillColor: rgb(58, 58, 58);
     }
 
     &::-webkit-slider-runnable-track {
-        background: rgb(245, 245, 245);  
+        background: rgb(44, 44, 44);  
     }
     
     &::-webkit-slider-thumb {

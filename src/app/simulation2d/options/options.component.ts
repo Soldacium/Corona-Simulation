@@ -27,16 +27,25 @@ export class OptionsComponent implements OnInit {
     maxSimulationDays: 100
   };
 
-  constructor(private simulationService: SimulationService) { }
+  constructor(private simulationService: SimulationService) {
+    this.options = this.simulationService.getOptions();
+  }
+
+  ngOnInit(): void {
+  }
 
   start(): void{
     this.simulationLocked = true;
     this.pauseSimulation = false;
+    this.simulationService.newSimulation();
+    this.simulationService.startSimulation();
   }
 
   reset(): void{
     this.simulationLocked = false;
     this.pauseSimulation = true;
+
+    this.simulationService.newSimulation();
   }
 
   save(): void{
@@ -45,13 +54,14 @@ export class OptionsComponent implements OnInit {
 
   pause(): void{
     this.pauseSimulation = true;
+    this.simulationService.pauseSimulation = true;
   }
 
   resume(): void{
     this.pauseSimulation = false;
+    this.simulationService.startSimulation();
   }
 
-  ngOnInit(): void {
-  }
+
 
 }
