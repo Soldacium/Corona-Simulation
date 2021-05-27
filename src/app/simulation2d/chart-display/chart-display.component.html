@@ -1,9 +1,10 @@
 <main>
-    <input type="number" class="day-input" min="0" max="5" [(ngModel)]="examinedDay" (ngModelChange)="getPieChartData()">
-    <div class="chart">
+    <input *ngIf="chartType===('pie-advanced')" type="number" class="day-input" min="0" [max]="lineChartArr.length" [(ngModel)]="examinedDay" (ngModelChange)="getPieChartData()">
+    <div class="chart" [ngSwitch]="chartType">
         <!--
-  
+        -->
         <ngx-charts-area-chart-normalized
+        *ngSwitchCase="'line-normalized'"
         [scheme]="colorScheme"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
@@ -11,12 +12,13 @@
         [yAxis]="yAxis"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
-        [timeline]="timeline"
-        [results]="arr"
+        [results]="lineChartArr"
+        [animations]="false"
         >
         </ngx-charts-area-chart-normalized>   
         
         <ngx-charts-line-chart
+        *ngSwitchCase="'line-normal'"
         [scheme]="colorScheme"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
@@ -24,13 +26,13 @@
         [yAxis]="yAxis"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
-        [timeline]="timeline"
-        [results]="arr"
+        [results]="lineChartArr"
         >
         </ngx-charts-line-chart>         
-        -->
+        
 
         <ngx-charts-advanced-pie-chart
+        *ngSwitchCase="'pie-advanced'"
         [scheme]="colorScheme"
         [results]="pieChartArr"
         [gradient]="true"
@@ -39,19 +41,18 @@
 
     </div>
     <div class="buttons">
-        <app-button-three>
+        <app-button-three (click)="pickChartType('line-normal')">
             Regular timeline
         </app-button-three>
-        <app-button-three>
+        <app-button-three (click)="pickChartType('line-normalized')">
             Normalized timeline
         </app-button-three>
-        <app-button-three>
+        <app-button-three (click)="pickChartType('pie-advanced')">
             Pie chart
         </app-button-three>
-        <app-button-three>
+        <app-button-three (click)="pickChartType('bar-normal')">
             Bar chart
         </app-button-three>
-        <button (click)="getPieChartData()">Get pie</button>
     </div>
 
 </main>

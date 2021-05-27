@@ -43,9 +43,17 @@
            <button appButtonFlat class="button-start" (click)="start()">Start</button> 
         </div>
         <div class="buttons-playing" *ngIf="simulationLocked">
-            <button class="button-reset" (click)="reset()">Reset</button>
-            <button class="button-pause" *ngIf="!pauseSimulation" (click)="pause()">Pause</button>
-            <button class="button-resume" *ngIf="pauseSimulation" (click)="resume()">Resume</button>
+            <button class="button-pause" *ngIf="!pauseSimulation && currentDay !== options.maxSimulationDays" (click)="pause()">
+                <img src="assets/icons/pause.svg" alt=""></button>
+            <button class="button-resume" *ngIf="pauseSimulation" (click)="resume()">
+                <img src="assets/icons/resume.svg" alt="">
+            </button>
+            <button class="button-reset" (click)="reset()">
+                <img src="assets/icons/reset.svg" alt="">
+            </button>
+            <button class="button-save" *ngIf="currentDay === options.maxSimulationDays" (click)="save()">
+                <img src="assets/icons/save.svg" alt="">
+            </button>
         </div>       
     </div>
 

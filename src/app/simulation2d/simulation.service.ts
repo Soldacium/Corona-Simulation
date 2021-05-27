@@ -1,6 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { LineChartData } from '@shared/models/chart-data-line';
+import { PieChartData } from '@shared/models/chart-data-pie';
 import { Human } from '@shared/models/human.model';
-import { SimulationOptions } from '@shared/models/simulationOptions.model';
+import { SimulationOptions } from '@shared/models/simulation-options.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class SimulationService {
     mortalityRate: 0.2,
     timeToRecover: 10,
     timeToDeath: 9,
-    maxSimulationDays: 100,
+    maxSimulationDays: 40,
     simulationSlowdown: 1000
   };
 
@@ -63,7 +65,7 @@ export class SimulationService {
     return [...this.chartData];
   }
 
-  getPieChartData(dayNumber: number){
+  getPieChartData(dayNumber: number): PieChartData[] {
     const pieChartData: any[] = [];
     const dayStats = this.dailyStats[dayNumber];
 
@@ -81,6 +83,7 @@ export class SimulationService {
   newSimulation(): void{
     this.pauseSimulation = true;
     this.dailyStats = [];
+    this.population = [];
     this.simulationDays = 0;
     for (let i = 0; i < this.options.populationSize; i++){
       this.population.push({
@@ -158,8 +161,9 @@ export class SimulationService {
       }
     });
     this.simulationDays += 1;
-    this.pushDayToChartData(today);
     this.dailyStats.push(today);
+    this.pushDayToChartData(today);
+    console.log(this.dailyStats);
   }
 
   pushDayToChartData(day: DailyStatistics): void{
@@ -198,14 +202,11 @@ export class SimulationService {
   }
 }
 
-export interface LineChartData {
-  name: string;
-  series: {name: string, value: number}[];
-}
-
 export interface DailyStatistics {
   healthy: number;
   sick: number;
   dead: number;
   immune: number;
 }
+
+

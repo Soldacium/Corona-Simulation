@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SimulationOptions } from '@shared/models/simulationOptions.model';
+import { SimulationOptions } from '@shared/models/simulation-options.model';
 import { SimulationService } from '@simulation2d/simulation.service';
 
 @Component({
@@ -15,6 +15,8 @@ export class OptionsComponent implements OnInit {
   pauseSimulation = true;
   simulationLocked = false;
   asyncChanges = true;
+
+  currentDay = 0;
 
   options: SimulationOptions = {
     name: '',
@@ -33,6 +35,13 @@ export class OptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initOptions();
+  }
+
+  initOptions(): void{
+    this.simulationService.LineChartDataEmmiter.subscribe((res: any) => {
+      this.currentDay = this.simulationService.simulationDays;
+    })
   }
 
   start(): void{
