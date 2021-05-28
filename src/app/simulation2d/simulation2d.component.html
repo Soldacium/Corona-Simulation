@@ -1,9 +1,9 @@
 
 <main>
-    <div class="options">
-        <app-options></app-options>
+    <div class="options" [ngClass]="hideOptions ? 'hide' : 'visible'">
+        <app-options (hideOptionsEmitter)='hideOptions = !hideOptions'></app-options>
     </div>
-    <div class="display">
+    <div class="display" [ngClass]="hideOptions ? 'wide' : 'narrow'">
         <app-chart-display></app-chart-display>
     </div>
 </main>

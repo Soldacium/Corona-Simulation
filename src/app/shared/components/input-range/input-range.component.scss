@@ -4,7 +4,7 @@ $sliderHeight: 1.4rem;
 .slidecontainer {
     width: 100%;
     position: relative;
-    padding: 0.4rem 0;
+    padding: 1.5rem 0;
 
     &.disabled{
         opacity: 0.3;
@@ -23,7 +23,7 @@ $sliderHeight: 1.4rem;
     transition: 0.2s;
     margin-bottom: 0.3rem;
     opacity: 1;
-    left: 0.75rem;
+    left: 0rem;
 }
 
 .icon{
@@ -33,14 +33,13 @@ $sliderHeight: 1.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: -0.25rem;
+    top: .75rem;
     left: -2.5rem;
     //background-color: rgb(37, 37, 37);
     //border: 2px solid $fillColor;
 
     img{
-        height: 1.5rem;
-        width: 1.5rem;
+        height: 1.4rem;
         filter: invert(100%);
     }
 }

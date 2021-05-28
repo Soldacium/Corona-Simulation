@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Simulation2dComponent implements OnInit {
 
+  hideOptions = false;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -2,19 +2,35 @@ main{
     background-color: rgb(34, 34, 34);
     height: 100vh;
     width: 100%;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
-    position: relative;
+    // box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
+    position: absolute;
+    transition: 0.4s ease;
+    left: 0;
+    bottom: 0;
+
+    &.hide{
+        height: 5.5rem;
+        
+        overflow: hidden;
+
+        .options-inputs{
+            opacity: 0;
+            overflow: hidden;
+        }
+    }
 
     .options-inputs{
         position: absolute;
         width: 100%;
         height: 100%;
         overflow-y: auto;
-        padding: 4rem 4rem;
+        padding: 6rem 5rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         align-items: flex-start;
+        opacity: 1;
+        transition: 0.2s ease;
 
         app-input-text{
             width: 100%;
@@ -50,6 +66,12 @@ main{
             height: 100%;
             position: relative;
             display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                height: 1rem;
+            }
 
             button{
                 display: flex;
@@ -57,16 +79,23 @@ main{
                 align-items: center;
                 border: none;
                 transition: 0.1s ease;
+                height: 100%;
 
                 &:hover{
                     filter: invert(10%);
                     cursor: pointer;
                 }
 
-                img{
-                    height: 1rem;
-                }
+
             }
+        }
+
+        .button-hide{
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            height: 1.5rem;
+            background-color: white;
         }
 
         .button-start,.button-reset,.button-save{

@@ -30,6 +30,22 @@ export class ChartDisplayComponent implements OnInit {
     domain: ['#00ff99', '#e6005c', '#CFC0BB', '#7aa3e5', '#a8385d', '#000000']
   };
 
+  // num of chart types, 2 line charts, 1 pie, 1 bar
+  chartTypes = [
+    {
+      type: 'Line',
+      value: 2
+    },
+    {
+      type: 'Pie',
+      value: 2
+    },
+    {
+      type: 'Bar',
+      value: 1
+    }
+  ];
+
   constructor(private simulationService: SimulationService) {
 
   }

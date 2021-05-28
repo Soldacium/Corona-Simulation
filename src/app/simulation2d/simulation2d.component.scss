@@ -3,15 +3,31 @@ main{
     height: 100vh;
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
 
     >div{
+        position: relative;
         height: 100%;
+        transition: 0.3s width ease;
     }
 
     .options{
         width: 500px;
+        z-index: 200;
+        bottom: 0;
+        left: 0;
+
+        &.hide{
+            position: absolute;
+            height: 6rem;
+        }
     }
     .display{
         width: calc(100% - 500px);
+
+        &.wide{
+            width: 100%;
+        }
+
     }
 }

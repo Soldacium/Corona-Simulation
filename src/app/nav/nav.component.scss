@@ -1,21 +1,143 @@
-nav{
-    position: fixed;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1rem;
+.menu-icon {
     top: 0;
     right: 0;
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+    z-index: 1001;
 
-    a{
-        text-decoration: none;
-        color: var(--colorText);
-        font-size: 1rem;
-        margin: 0.3rem 2rem;
-        padding: 0.5rem 1rem;
+    &.active{
+        span{
+            background-color: white;
+        }
+        
+    }
 
-        &.active{
-            border: 2px solid black;
+	.menu-icon__cheeckbox {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		cursor: pointer;
+		z-index: 2;
+		-webkit-touch-callout: none;
+		position: absolute;
+		opacity: 0;
+	}
+	div {
+		margin: auto;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		width: 22px;
+		height: 12px;
+	}
+	span {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 2px;
+		background-color: black;
+		border-radius: 1px;
+		transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
+
+		&:first-of-type {
+			top: 0;
+		}
+		&:last-of-type {
+			bottom: 0;
+		}
+	}
+	&.active,
+	.menu-icon__cheeckbox:checked + div {
+		span {
+			&:first-of-type {
+				transform: rotate(45deg);
+				top: 5px;
+			}
+			&:last-of-type {
+				transform: rotate(-45deg);
+				bottom: 5px;
+			}
+		}
+	}
+
+	&.active:hover span:first-of-type,
+	&.active:hover span:last-of-type,
+	&:hover .menu-icon__cheeckbox:checked + div span:first-of-type,
+	&:hover .menu-icon__cheeckbox:checked + div span:last-of-type {
+		width: 22px;
+	}
+
+	&:hover {
+		// no need hover effect on mobile.
+		@media (min-width: 1024px) {
+			span:first-of-type {
+				width: 26px;
+			}
+
+			span:last-of-type {
+				width: 12px;
+			}
+		}
+	}
+}
+
+
+.nav-wrap{
+    position: fixed;
+    top: -30rem;
+    right: -30rem;
+    z-index: 1000;
+    padding: 3rem 1rem;
+    transition: 0.5s ease;
+
+    &.active{
+        top: 0;
+        right: 0;
+
+        nav{
+            transition-delay: 0.5s;
+            opacity: 1;
+        }
+    }
+
+    
+    &::before{
+        position: absolute;
+        content: '';
+        left: 70%;
+        top: 30%;
+        transform: translate(-50%,-50%);
+        background-color: black;
+        width: 30rem;
+        height: 30rem;
+        border-radius: 50%;
+    }
+
+    nav{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        transition: 0.2s ease;
+        opacity: 0;
+    
+        a{
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            margin: 0.3rem 2rem;
+            padding: 0.5rem 1rem;
+    
+            &.active{
+                border: 2px solid white;
+            }
         }
     }
 }
+

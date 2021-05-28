@@ -1,8 +1,12 @@
 <main>
-    <h1>Welcome to outbreak simulacrum!</h1>
-    <p>What's on your mind?</p>
+    <h1>Outbreak simulacrum</h1>
+    <p>What's the plan?</p>
     <div>
-        <a href="">Brew new virus</a>
-        <a href="">Pick from shelf</a>
+        <app-button-three (click)="routeTo('simulation2d')">
+            New virus
+        </app-button-three>
+        <app-button-three (click)="routeTo('saved')">
+            Visit shelf
+        </app-button-three>
     </div>
 </main>

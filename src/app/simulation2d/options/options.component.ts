@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SimulationOptions } from '@shared/models/simulation-options.model';
 import { SimulationService } from '@simulation2d/simulation.service';
 
@@ -9,7 +9,10 @@ import { SimulationService } from '@simulation2d/simulation.service';
 })
 export class OptionsComponent implements OnInit {
 
-  population = 100;
+  @Output()
+  hideOptionsEmitter = new EventEmitter<boolean>();
+
+  hideOptions = false;
 
   simulationSpeed = 30;
   pauseSimulation = true;
@@ -41,7 +44,12 @@ export class OptionsComponent implements OnInit {
   initOptions(): void{
     this.simulationService.LineChartDataEmmiter.subscribe((res: any) => {
       this.currentDay = this.simulationService.simulationDays;
-    })
+    });
+  }
+
+  changeOptionsVisibility(): void{
+    this.hideOptions = !this.hideOptions;
+    this.hideOptionsEmitter.emit(this.hideOptions);
   }
 
   start(): void{

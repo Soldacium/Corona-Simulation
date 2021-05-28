@@ -1,5 +1,5 @@
 <main>
-    <input *ngIf="chartType===('pie-advanced')" type="number" class="day-input" min="0" [max]="lineChartArr.length" [(ngModel)]="examinedDay" (ngModelChange)="getPieChartData()">
+    <input *ngIf="chartType===('pie-regular') || chartType===('pie-advanced')" type="number" class="day-input" min="0" [max]="lineChartArr.length" [(ngModel)]="examinedDay" (ngModelChange)="getPieChartData()">
     <div class="chart" [ngSwitch]="chartType">
         <!--
         -->
@@ -30,7 +30,6 @@
         >
         </ngx-charts-line-chart>         
         
-
         <ngx-charts-advanced-pie-chart
         *ngSwitchCase="'pie-advanced'"
         [scheme]="colorScheme"
@@ -39,19 +38,35 @@
         >
         </ngx-charts-advanced-pie-chart>
 
+        <ngx-charts-pie-chart
+        *ngSwitchCase="'pie-regular'"
+        [scheme]="colorScheme"
+        [results]="pieChartArr"
+        [gradient]="true"
+        >
+        </ngx-charts-pie-chart>
+
     </div>
     <div class="buttons">
+        <div class="buttons-legend">
+            <div class="button-legend-name" *ngFor="let chart of chartTypes" [style.flex]="chart.value + ' 1'">
+                {{chart.type}}
+            </div>
+        </div>
         <app-button-three (click)="pickChartType('line-normal')">
-            Regular timeline
+            Regular
         </app-button-three>
         <app-button-three (click)="pickChartType('line-normalized')">
-            Normalized timeline
+            Normalized
+        </app-button-three>
+        <app-button-three (click)="pickChartType('pie-regular')">
+            Regular
         </app-button-three>
         <app-button-three (click)="pickChartType('pie-advanced')">
-            Pie chart
+            Advanced
         </app-button-three>
         <app-button-three (click)="pickChartType('bar-normal')">
-            Bar chart
+            Regular
         </app-button-three>
     </div>
 
