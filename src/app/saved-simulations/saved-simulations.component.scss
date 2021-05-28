@@ -1,0 +1,101 @@
+$borderRadius: 1rem;
+
+main{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 25%;
+}
+
+.simulation-wrap{
+    position: relative;
+    background-color: rgb(85, 85, 85);
+    border-radius: calc(1.1rem);
+    margin: 1.5rem 0;
+    width: 100%;
+    background-image: url('https://image.freepik.com/free-vector/linear-flat-design-abstract-lines-pattern_23-2148936067.jpg');
+}
+
+.simulation{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: white;
+    border: 2px solid rgb(241, 241, 241);
+    // box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    max-height: 7rem;
+    overflow: hidden;
+    transition: 0.2s ease;
+
+    &:hover{
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+
+    &.expand{
+        max-height: 15rem;
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+
+    .thumbnail{
+        display: flex;
+        align-items: center;
+        height: 5rem;
+
+        h1{
+            &::first-letter{
+                color: var(--colorAccent1);
+            }
+        }
+
+        p{
+            margin: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            background-color: var(--colorAccent1);
+        }
+
+        .thumbnail-buttons{
+            margin-left: auto;
+            position: relative;
+            float: right;
+
+            button{
+                padding: 0.5rem;
+                margin: 0.5rem;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                
+                img{
+                    height: 1.5rem;
+                }
+            }
+        }
+    }
+
+    .more{
+        display: flex;
+        flex-wrap: wrap;
+
+        .option{
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            margin: 1rem;
+            background-color: white;
+            font-size: 1rem;
+
+            img{
+                height: 1rem;
+                margin-right: 1rem;
+            }
+        }
+    }
+}

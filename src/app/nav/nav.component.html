@@ -1,20 +1,20 @@
 
-<div class="menu-icon">
+<div class="menu-icon" [ngClass]="open ? 'active' : 'naah'" >
     <input 
     class="menu-icon__cheeckbox" 
     type="checkbox" 
-    [ngClass]="open ? 'active' : 'naah'" 
+    
     [checked]="open" 
     (change)="open = !open"/>
     <div>
-        <span></span>
-        <span></span>
+        <span class="span"></span>
+        <span class="span"></span>
     </div>
 </div>
 <div class="nav-wrap" [ngClass]="open ? 'active' : 'naah'">
     <nav>
-        <a [routerLink]='["/"]' routerLinkActive='active'>Main</a>
-        <a [routerLink]='["/simulation2d"]' routerLinkActive='active'>Simulation2d</a>
+        <a [routerLink]='["/"]' pathMatch="'full'" routerLinkActive='active'>Main</a>
+        <a [routerLink]='["/simulation2d/new"]' routerLinkActive='active'>Simulation2d</a>
         <a [routerLink]='["/simulation3d"]' routerLinkActive='active'>Simulation3d</a>
         <a [routerLink]='["/saved-simulations"]' routerLinkActive='active'>All simulations</a>
     </nav>     

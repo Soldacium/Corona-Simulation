@@ -3,6 +3,7 @@ import { LineChartData } from '@shared/models/chart-data-line';
 import { PieChartData } from '@shared/models/chart-data-pie';
 import { Human } from '@shared/models/human.model';
 import { SimulationOptions } from '@shared/models/simulation-options.model';
+import { DailyStatistics } from '@shared/models/statistics-day';
 
 @Injectable({
   providedIn: 'root'
@@ -202,11 +203,6 @@ export class SimulationService {
   }
 }
 
-export interface DailyStatistics {
-  healthy: number;
-  sick: number;
-  dead: number;
-  immune: number;
-}
+
 
 

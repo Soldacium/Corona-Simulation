@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const albumSchema = mongoose.Schema({
+const simulation2dSchema = mongoose.Schema({
     options: {
         name: String,
         populationSize: Number,
@@ -12,9 +12,13 @@ const albumSchema = mongoose.Schema({
         maxSimulationDays: Number,
         simulationSlowdown: Number
     },
+    data: [{
+        infected: String,
+        healthy: String,
+        immune: String,
+        dead: String
+    }],
     name: String,
-    description: String,
-    pictures: [String],
 });
 
-module.exports = mongoose.model('Album', albumSchema);
+module.exports = mongoose.model('Simulation2d', simulation2dSchema);

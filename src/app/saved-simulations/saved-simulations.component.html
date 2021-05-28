@@ -1,1 +1,51 @@
-<p>saved-simulations works!</p>
+<main>
+    <div class="simulation-wrap" *ngFor="let simulation of simulations">
+        <div class="simulation"  [ngClass]="expandedSimulations.includes(simulation) ? 'expand': 'shrink'">
+            <div class="thumbnail">
+                <h1>Simulation name</h1>
+                <p>Simulation2d</p>  
+                <div class="thumbnail-buttons">
+                    <button>
+                        <img src="assets/icons/load.svg" alt="">
+                    </button>
+                    <button (click)="expandSimulation(simulation)">
+                        <img src="assets/icons/expand.svg" alt="">
+                    </button>
+                </div>          
+            </div>
+            <div class="more">
+                <div class="option">
+                    <img src="assets/icons/population.svg" alt="">
+                    <p>1000</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/virus.svg" alt="">
+                    <p>5</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/share.svg" alt="">
+                    <p>0.02</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/skull.svg" alt="">
+                    <p>0.05</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/tomb.svg" alt="">
+                    <p>14</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/heart.svg" alt="">
+                    <p>18</p>
+                </div>
+                <div class="option">
+                    <img src="assets/icons/calendar.svg" alt="">
+                    <p>56</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+

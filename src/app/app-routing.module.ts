@@ -8,7 +8,7 @@ const routes: Routes = [
     component: WelcomeComponent
   },
   {
-    path: 'simulation2d',
+    path: 'simulation2d/:id',
     loadChildren: () => import('@simulation2d/simulation2d.module').then(m =>
       m.Simulation2dModule
     )

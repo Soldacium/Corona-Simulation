@@ -1,6 +1,5 @@
 const express = require('express')
-const albumRoutes = require('./routes/albums');
-const pictureRoutes = require('./routes/pictures');
+const simulations2dRoutes = require('./routes/simulations2d');
 const mongoose = require('mongoose');
 const keys = require('./keys');
 const path = require('path');
@@ -8,7 +7,7 @@ const path = require('path');
 
 const app = express();
 
-mongoose.connect(`mongodb+srv://${keys.mongoUser.login}:${keys.mongoUser.password}@testingcluster.rgayz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, { useNewUrlParser: true , useUnifiedTopology: true})
+mongoose.connect(`mongodb+srv://${keys.login}:${keys.password}@testingcluster.rgayz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, { useNewUrlParser: true , useUnifiedTopology: true})
     .then(() => {
         console.log('connected to DB')
     })
@@ -32,9 +31,9 @@ app.use((req,res,next) => {
     next();
 })
 
-app.use("/images", express.static(path.join('backend/images')));
-app.use('/api/albums',albumRoutes);
-app.use('/api/pictures',pictureRoutes);
+// app.use("/images", express.static(path.join('backend/images')));
+app.use('/api/simulations2d',simulations2dRoutes);
+//app.use('/api/pictures',pictureRoutes);
 
 /*
 let route, routes = [];

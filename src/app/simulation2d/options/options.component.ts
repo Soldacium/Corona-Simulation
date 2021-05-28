@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SimulationOptions } from '@shared/models/simulation-options.model';
 import { SimulationService } from '@simulation2d/simulation.service';
 
@@ -11,6 +11,9 @@ export class OptionsComponent implements OnInit {
 
   @Output()
   hideOptionsEmitter = new EventEmitter<boolean>();
+
+  @Input()
+  loading = false;
 
   hideOptions = false;
 
