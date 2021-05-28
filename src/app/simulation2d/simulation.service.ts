@@ -3,7 +3,9 @@ import { LineChartData } from '@shared/models/chart-data-line';
 import { PieChartData } from '@shared/models/chart-data-pie';
 import { Human } from '@shared/models/human.model';
 import { SimulationOptions } from '@shared/models/simulation-options.model';
+import { Simulation2d } from '@shared/models/simulation2d';
 import { DailyStatistics } from '@shared/models/statistics-day';
+import { SimulationsSavedService } from '@shared/services/simulations-saved.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,10 @@ export class SimulationService {
 
   LineChartDataEmmiter = new EventEmitter<LineChartData[]>();
 
-  population: Human[] = [];
+  simulationId = '';
+  simulationName = '';
+
+  private population: Human[] = [];
   pauseSimulation = true;
   simulationDays = 0;
 
@@ -25,25 +30,25 @@ export class SimulationService {
     timeToRecover: 10,
     timeToDeath: 9,
     maxSimulationDays: 40,
-    simulationSlowdown: 1000
+    simulationSlowdown: 100
   };
 
-  dailyStats: DailyStatistics[] = [
+  private dailyStats: DailyStatistics[] = [
     {
       healthy: 0,
-      sick: 0,
+      infected: 0,
       dead: 0,
       immune: 0
     }
   ];
 
-  chartData: LineChartData[] = [
+  private chartData: LineChartData[] = [
     {
       name: 'Healthy',
       series: []
     },
     {
-      name: 'Sick',
+      name: 'Infected',
       series: []
     },
     {
@@ -56,7 +61,7 @@ export class SimulationService {
     },
   ];
 
-  constructor() { }
+  constructor(private savedSimulations: SimulationsSavedService) { }
 
   getOptions(): SimulationOptions {
     return this.options;
@@ -101,14 +106,23 @@ export class SimulationService {
 
     const day1 = {
         healthy: this.options.populationSize - this.options.startingInfected,
-        sick: this.options.startingInfected,
+        infected: this.options.startingInfected,
         dead: 0,
         immune: 0
     };
 
     this.resetChartData();
     this.dailyStats.push(day1);
-    this.pushDayToChartData(day1);
+    this.pushDayToChartData(day1, 0);
+  }
+
+  private resetChartData(): void{
+    this.chartData[0].series = [];
+    this.chartData[1].series = [];
+    this.chartData[2].series = [];
+    this.chartData[3].series = [];
+
+    this.LineChartDataEmmiter.emit([...this.chartData]);
   }
 
   async startSimulation(): Promise<void>{
@@ -120,11 +134,11 @@ export class SimulationService {
     }
   }
 
-  nextDay(): void{
+  private nextDay(): void{
     const previousDay = this.dailyStats[this.dailyStats.length - 1];
     const today = {...this.dailyStats[this.dailyStats.length - 1]};
     let toBeInfected = 0;
-    for (let i = 0; i < previousDay.sick; i++){
+    for (let i = 0; i < previousDay.infected; i++){
       let minimum = Math.floor(this.options.infectionRate);
       if (Math.random() < this.options.infectionRate - minimum){
         minimum += 1;
@@ -140,20 +154,20 @@ export class SimulationService {
       if (human.isInfected && human.timeInfected >= this.options.timeToDeath && Math.random() < this.options.mortalityRate){
         human.isAlive = false;
         today.dead += 1;
-        today.sick -= 1;
+        today.infected -= 1;
         return;
       }
 
       if (human.isInfected && human.timeInfected >= this.options.timeToRecover){
         human.isImmune = true;
         today.immune += 1;
-        today.sick -= 1;
+        today.infected -= 1;
       }
 
       if (!human.isImmune && !human.isInfected && toBeInfected > 0){
         human.isInfected = true;
         today.healthy -= 1;
-        today.sick += 1;
+        today.infected += 1;
         toBeInfected -= 1;
       }
 
@@ -163,39 +177,67 @@ export class SimulationService {
     });
     this.simulationDays += 1;
     this.dailyStats.push(today);
-    this.pushDayToChartData(today);
-    console.log(this.dailyStats);
+    this.pushDayToChartData(today, this.simulationDays);
   }
 
-  pushDayToChartData(day: DailyStatistics): void{
-    const outbreakDay = this.dailyStats.length - 1;
+  private pushDayToChartData(day: DailyStatistics, dayNumber: number): void{
     this.chartData[0].series.push({
-      name: outbreakDay.toString(),
+      name: dayNumber.toString(),
       value: day.healthy
     });
     this.chartData[1].series.push({
-      name: outbreakDay.toString(),
-      value: day.sick
+      name: dayNumber.toString(),
+      value: day.infected
     });
     this.chartData[2].series.push({
-      name: outbreakDay.toString(),
+      name: dayNumber.toString(),
       value: day.dead
     });
     this.chartData[3].series.push({
-      name: outbreakDay.toString(),
+      name: dayNumber.toString(),
       value: day.immune
     });
 
     this.LineChartDataEmmiter.emit([...this.chartData]);
   }
 
-  resetChartData(): void{
-    this.chartData[0].series = [];
-    this.chartData[1].series = [];
-    this.chartData[2].series = [];
-    this.chartData[3].series = [];
+  saveSimulation(): void{
+    const databaseObjectIdLength = 24;
+    if (this.simulationId.length !== databaseObjectIdLength){
+      this.savedSimulations.postSimulation2d(this.makeSimulationObject()).subscribe((simulation: Simulation2d) => {
+        this.simulationId = simulation._id;
+      });
+    }else{
+      this.savedSimulations.updateSimulation2d(this.makeSimulationObject()).subscribe();
+    }
+  }
 
-    this.LineChartDataEmmiter.emit([...this.chartData]);
+  private makeSimulationObject(): Simulation2d{
+    return {
+      data: this.dailyStats,
+      options: this.options,
+      name: this.simulationName,
+      _id: this.simulationId
+    };
+  }
+
+  // can be optimised
+  setActiveSimulation(simulation: Simulation2d): void{
+    this.resetChartData();
+    simulation.data.forEach((el) => {
+      el.dead = parseInt(el.dead.toString(), 10);
+      el.immune = parseInt(el.immune.toString(), 10);
+      el.infected = parseInt(el.infected.toString(), 10);
+      el.healthy = parseInt(el.healthy.toString(), 10);
+    });
+    this.dailyStats = simulation.data;
+    this.options = simulation.options;
+    this.simulationName = simulation.name;
+    this.simulationId = simulation._id;
+
+    this.dailyStats.forEach((day, i) => {
+      this.pushDayToChartData(day, i);
+    });
   }
 
   wait(ms: number): Promise < any > {

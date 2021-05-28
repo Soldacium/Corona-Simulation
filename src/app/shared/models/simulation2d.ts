@@ -1,5 +1,5 @@
-import { SimulationOptions } from "./simulation-options.model";
-import { DailyStatistics } from "./statistics-day";
+import { SimulationOptions } from './simulation-options.model';
+import { DailyStatistics } from './statistics-day';
 
 export interface Simulation2d {
     name: string;

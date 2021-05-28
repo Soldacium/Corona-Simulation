@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'saved-simulations',
-    loadChildren: () => import('@savedSimulations/saved-simulations.module').then(m => 
+    loadChildren: () => import('@savedSimulations/saved-simulations.module').then(m =>
       m.SavedSimulationsModule
     )
   }

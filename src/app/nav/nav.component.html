@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="nav-wrap" [ngClass]="open ? 'active' : 'naah'">
-    <nav>
+    <nav (click)="open = !open">
         <a [routerLink]='["/"]' pathMatch="'full'" routerLinkActive='active'>Main</a>
         <a [routerLink]='["/simulation2d/new"]' routerLinkActive='active'>Simulation2d</a>
         <a [routerLink]='["/simulation3d"]' routerLinkActive='active'>Simulation3d</a>

@@ -1,6 +1,6 @@
 export interface DailyStatistics {
     healthy: number;
-    sick: number;
+    infected: number;
     dead: number;
     immune: number;
 }

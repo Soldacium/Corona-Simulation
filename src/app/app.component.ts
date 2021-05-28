@@ -11,8 +11,6 @@ export class AppComponent {
   isShowingRouteLoadIndicator = true;
   constructor(router: Router){
     this.isShowingRouteLoadIndicator = false;
-
-
     let asyncLoadCount = 0;
     router.events.subscribe((event: Event ) =>{
       if ( event instanceof RouteConfigLoadStart ) {

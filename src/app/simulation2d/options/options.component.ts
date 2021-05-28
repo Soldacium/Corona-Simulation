@@ -70,7 +70,7 @@ export class OptionsComponent implements OnInit {
   }
 
   save(): void{
-
+    this.simulationService.saveSimulation();
   }
 
   pause(): void{

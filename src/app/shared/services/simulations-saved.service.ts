@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
 })
 export class SimulationsSavedService {
 
+  simulations2d: Simulation2d[] = [];
+  currentSimulation2d!: Simulation2d | null;
+
   constructor(private http: HttpClient) { }
 
   getSimulation2d(id: string): Observable<Simulation2d>{
@@ -19,26 +22,35 @@ export class SimulationsSavedService {
     );
   }
 
-  postSimulation2d(simulation: Simulation2d){
+  getAllSimulations2d(): Observable<Simulation2d[]>{
+    return this.http.get<Simulation2d[]>('http://localhost:3000/api/simulations2d/').pipe(
+      map((simulations: Simulation2d[]) => {
+        return simulations;
+      })
+    );
+  }
+
+  postSimulation2d(simulation: Simulation2d): Observable<Simulation2d>{
+    console.log(simulation);
     return this.http.post<Simulation2d>('http://localhost:3000/api/simulations2d/', simulation).pipe(
-      map((res: any) => {
-        return res;
+      map((simulationRes: any) => {
+        return simulationRes;
       })
     );
   }
 
-  updateSimulation2d(simulation: Simulation2d){
+  updateSimulation2d(simulation: Simulation2d): Observable<Simulation2d>{
     return this.http.patch<Simulation2d>('http://localhost:3000/api/simulations2d/' + simulation._id, simulation).pipe(
-      map((simulation: Simulation2d) => {
-        return simulation;
+      map((simulationRes: Simulation2d) => {
+        return simulationRes;
       })
     );
   }
 
-  deleteSimulation2d(simulation: Simulation2d){
+  deleteSimulation2d(simulation: Simulation2d): Observable<Simulation2d>{
     return this.http.delete<Simulation2d>('http://localhost:3000/api/simulations2d/' + simulation._id).pipe(
-      map((simulation: Simulation2d) => {
-        return simulation;
+      map((simulationRes: Simulation2d) => {
+        return simulationRes;
       })
     );
   }

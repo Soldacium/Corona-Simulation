@@ -21,7 +21,7 @@ router.get('',(req,res,next) => {
     Simulation2d
     .find()
     .then(
-        simulations => res.status(200).json(simulation),
+        simulations => res.status(200).json(simulations),
         err => {res.status(500).json(err); console.error(err)}
     );
 });
@@ -30,7 +30,7 @@ router.get('/:id',(req,res,next) => {
     Simulation2d
     .findOne({_id: req.params.id})
     .then(
-        album => res.status(200).json(album),
+        simulation => res.status(200).json(simulation),
         err => {res.status(500).json(err); console.error(err)}
     );
 });

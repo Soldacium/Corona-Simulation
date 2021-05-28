@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Simulation2d } from '@shared/models/simulation2d';
+import { SimulationsSavedService } from '@shared/services/simulations-saved.service';
 
 @Component({
   selector: 'app-saved-simulations',
@@ -8,18 +11,29 @@ import { Component, OnInit } from '@angular/core';
 export class SavedSimulationsComponent implements OnInit {
 
   expandedSimulations: number[] = [];
-  simulations = [1,2,3,4];
-  constructor() { }
+  simulations: Simulation2d[] = [];
+  constructor(private savedSimulations: SimulationsSavedService, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.getSimulations();
   }
 
-  expandSimulation(simulation: number){
-    if(this.expandedSimulations.includes(simulation)){
-      this.expandedSimulations.splice(this.expandedSimulations.indexOf(simulation), 1);
+  getSimulations(): void{
+    this.savedSimulations.getAllSimulations2d().subscribe((simulations: Simulation2d[]) => {
+      this.simulations = simulations;
+    });
+  }
+
+  loadSimulation(simulation: Simulation2d): void{
+    this.savedSimulations.currentSimulation2d = simulation;
+    this.router.navigate([`/simulation2d/${simulation._id}`]);
+  }
+
+  expandSimulation(simulationIndex: number): void{
+    if (this.expandedSimulations.includes(simulationIndex)){
+      this.expandedSimulations.splice(this.expandedSimulations.indexOf(simulationIndex), 1);
     }else{
-      this.expandedSimulations.push(simulation);
+      this.expandedSimulations.push(simulationIndex);
     }
   }
 

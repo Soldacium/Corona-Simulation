@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
 
+const dataSchema = mongoose.Schema({
+    infected: String,
+    healthy: String,
+    immune: String,
+    dead: String,
+}, { _id : false });
+
 const simulation2dSchema = mongoose.Schema({
     options: {
         name: String,
@@ -12,12 +19,7 @@ const simulation2dSchema = mongoose.Schema({
         maxSimulationDays: Number,
         simulationSlowdown: Number
     },
-    data: [{
-        infected: String,
-        healthy: String,
-        immune: String,
-        dead: String
-    }],
+    data: [dataSchema],
     name: String,
 });
 
