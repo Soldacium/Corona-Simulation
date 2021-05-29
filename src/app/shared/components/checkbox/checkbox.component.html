@@ -1,0 +1,10 @@
+<div class="checkbox" [ngClass]='disabled ? "disabled":"enabled"'>
+    <input 
+    type="checkbox" 
+    id="html"   
+    [checked]="checked"
+    (change)="emitChange($event)">
+    <label for="html">
+        <ng-content></ng-content>
+    </label>
+</div>

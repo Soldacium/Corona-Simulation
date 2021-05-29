@@ -20,7 +20,6 @@ const simulation2dSchema = mongoose.Schema({
         simulationSlowdown: Number
     },
     data: [dataSchema],
-    name: String,
 });
 
 module.exports = mongoose.model('Simulation2d', simulation2dSchema);

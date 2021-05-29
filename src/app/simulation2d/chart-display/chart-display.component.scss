@@ -1,4 +1,4 @@
-$grayedOut: rgb(190, 190, 190);
+$grayedOut: rgb(199, 199, 199);
 
 main{
     display: flex;
@@ -35,7 +35,7 @@ main{
         .buttons-legend{
             position: absolute;
             width: 100%;
-            top: 100%;
+            top: calc(100% + 0.5rem);
             left: 0;
             display: flex;
             

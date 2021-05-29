@@ -2,7 +2,7 @@
     <div class="simulation-wrap" *ngFor="let simulation of simulations; index as i">
         <div class="simulation"  [ngClass]="expandedSimulations.includes(i) ? 'expand': 'shrink'">
             <div class="thumbnail">
-                <h1>Simulation name</h1>
+                <h1>{{simulation.options.name}}</h1>
                 <p>Simulation2d</p>  
                 <div class="thumbnail-buttons">
                     <button (click)="loadSimulation(simulation)">

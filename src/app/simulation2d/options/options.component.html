@@ -28,19 +28,20 @@
         <app-input-range [icon]="'assets/icons/stopwatch.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="10" [max]="3000" [(inputModel)]="options.simulationSlowdown">
             Simulation slowdown
         </app-input-range>
-        <div class="checkbox">
-            <input 
-            type="checkbox" 
-            id="html"   
-            [checked]="asyncChanges"
-            (change)="asyncChanges = !asyncChanges">
-            <label for="html">Async modifications</label>
-        </div>
+
+        <app-checkbox
+        [checked]="asyncChanges"
+        [disabled]="simulationLocked"
+        (onchange)="asyncChanges = !asyncChanges">
+            Async modifications
+        </app-checkbox>
+
     </div>
 
     <div class="buttons">
-        <div class="button-hide" (click)="changeOptionsVisibility()">
-            <img src="assets/icons/dashboard.svg" alt="">
+        <div class="button-hide" [ngClass]="hideOptions ? 'active':'normal'" (click)="changeOptionsVisibility()">
+            <span></span>
+            <span></span>
         </div>
         <div *ngIf="!simulationLocked">
            <button appButtonFlat class="button-start" (click)="start()">Start</button> 

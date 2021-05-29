@@ -7,6 +7,7 @@ import { ButtonFlatDirective } from './directives/button-flat.directive';
 import { OptionsWrapComponent } from './components/options-wrap/options-wrap.component';
 import { ButtonStrokedDirective } from './directives/button-stroked.directive';
 import { ButtonThreeComponent } from './components/button-three/button-three.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 
 
@@ -17,7 +18,8 @@ import { ButtonThreeComponent } from './components/button-three/button-three.com
     ButtonFlatDirective,
     OptionsWrapComponent,
     ButtonStrokedDirective,
-    ButtonThreeComponent
+    ButtonThreeComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { ButtonThreeComponent } from './components/button-three/button-three.com
     InputTextComponent,
     ButtonFlatDirective,
     ButtonStrokedDirective,
-    ButtonThreeComponent
+    ButtonThreeComponent,
+    CheckboxComponent
 
   ]
 })

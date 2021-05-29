@@ -13,7 +13,8 @@ main{
     border-radius: calc(1.1rem);
     margin: 1.5rem 0;
     width: 100%;
-    background-image: url('https://image.freepik.com/free-vector/linear-flat-design-abstract-lines-pattern_23-2148936067.jpg');
+    background-image: var(--backgroundPattern);
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.082) inset;
 }
 
 .simulation{
@@ -23,8 +24,7 @@ main{
     width: 100%;
     padding: 1rem 2rem;
     background-color: white;
-    border: 2px solid rgb(241, 241, 241);
-    // box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
+    border: 1px solid rgb(241, 241, 241);
     border-radius: $borderRadius;
     display: flex;
     flex-direction: column;
@@ -35,12 +35,16 @@ main{
     &:hover{
         top: 0.5rem;
         left: 0.5rem;
+        border-color: transparent;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
     }
 
     &.expand{
         max-height: 15rem;
         top: 0.5rem;
         left: 0.5rem;
+        border-color: transparent;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
     }
 
     .thumbnail{
@@ -59,22 +63,32 @@ main{
             padding: 0.5rem 1rem;
             border-radius: 1rem;
             background-color: var(--colorAccent1);
+            color: white;
         }
 
         .thumbnail-buttons{
             margin-left: auto;
             position: relative;
-            float: right;
+            display: flex;
 
             button{
-                padding: 0.5rem;
+                height: 3rem;
+                width: 3rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin: 0.5rem;
                 cursor: pointer;
-                border: none;
                 background: transparent;
+                border: 1px solid transparent;
+                transition: 0.2s ease;
+                border-radius: 0.3rem;
                 
+                &:hover{
+                    border-color: rgb(214, 214, 214);
+                }
                 img{
-                    height: 1.5rem;
+                    height: 1.3rem;
                 }
             }
         }

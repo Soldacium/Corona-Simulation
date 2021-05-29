@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Simulation3dComponent } from './simulation3d.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes-simulation3d';
+import { SimulationDisplayComponent } from './simulation-display/simulation-display.component';
 
 
 @NgModule({
   declarations: [
-    Simulation3dComponent
+    Simulation3dComponent,
+    SimulationDisplayComponent
   ],
   imports: [
     CommonModule,

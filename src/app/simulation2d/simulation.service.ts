@@ -216,7 +216,6 @@ export class SimulationService {
     return {
       data: this.dailyStats,
       options: this.options,
-      name: this.simulationName,
       _id: this.simulationId
     };
   }
@@ -232,7 +231,6 @@ export class SimulationService {
     });
     this.dailyStats = simulation.data;
     this.options = simulation.options;
-    this.simulationName = simulation.name;
     this.simulationId = simulation._id;
 
     this.dailyStats.forEach((day, i) => {

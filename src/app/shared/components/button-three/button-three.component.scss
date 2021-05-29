@@ -3,7 +3,7 @@ button{
     width: 10rem;
     height: 2.5rem;
     // border: 3px solid var(--colorSecondary);
-    background-color: var(--colorSecondary);
+    background: var(--backgroundPattern);
     color: rgb(0, 0, 0);
     font-size: 1.1rem;
     font-weight: 500;
@@ -29,6 +29,7 @@ button{
         .background{
             left: 0rem;
             top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
         }
     }
 
@@ -36,6 +37,7 @@ button{
         .background{
             left: 0rem;
             top: 0.3rem;
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.11);
         }
     }
 }
