@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Simulation2d } from '@shared/models/simulation2d';
+import { Simulation2d } from '@shared/models/simulation-2d';
 import { SimulationsSavedService } from '@shared/services/simulations-saved.service';
 import { SimulationService } from './simulation.service';
 

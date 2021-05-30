@@ -4,12 +4,14 @@ import { Simulation3dComponent } from './simulation3d.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './routes-simulation3d';
 import { SimulationDisplayComponent } from './simulation-display/simulation-display.component';
+import { OptionsComponent } from './options/options.component';
 
 
 @NgModule({
   declarations: [
     Simulation3dComponent,
-    SimulationDisplayComponent
+    SimulationDisplayComponent,
+    OptionsComponent
   ],
   imports: [
     CommonModule,

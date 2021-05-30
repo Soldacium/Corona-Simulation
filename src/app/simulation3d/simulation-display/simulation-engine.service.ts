@@ -45,36 +45,10 @@ export class SimulationEngineService implements OnDestroy {
 
     this.scene = new THREE.Scene();
 
-    const hemisphereLight = new THREE.HemisphereLight(0xadfff8, 0x05386b, 0.7);
-    this.scene.add(hemisphereLight);
-    hemisphereLight.position.y = 300;
-
-    const light = new THREE.AmbientLight( 0x404040, 1 );
+    const light = new THREE.AmbientLight( 0xeeeeee, 1 );
     this.scene.add( light );
 
     this.scene.background = new THREE.Color(0xFFFFFF);
-
-    this.pointLight = new THREE.PointLight(0xFFFFFF, 0.4);
-    this.pointLight.position.z = 400;
-    this.scene.add(this.pointLight);
-
-    /*
-    const path = 'assets/images/reflection-imgs/';
-    const format = '.jpg';
-    const urls = [
-        path + 'px' + format, path + 'nx' + format,
-        path + 'py' + format, path + 'ny' + format,
-        path + 'pz' + format, path + 'nz' + format
-    ];
-
-    const reflectionCube = new THREE.CubeTextureLoader().load(urls);
-    reflectionCube.format = THREE.RGBFormat;
-
-    envMap: reflectionCube,
-    */
-
-
-    this.makeOctahedrons();
 
     this.renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -91,42 +65,38 @@ export class SimulationEngineService implements OnDestroy {
     this.raycaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2();
 
-    window.addEventListener( 'resize', this.onWindowResize, false );
+    // window.addEventListener( 'resize', this.onWindowResize, false );
 
     this.renderer.setClearColor('white');
     this.animate();
   }
 
-  private makeOctahedrons(): void{
-    for (let i = 0; i < this.TETRAHEDRON_COUNT; i++){
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        flatShading: true
-      });
-      const randX = Math.floor(Math.random() * 1000 - 500);
-      const randY = Math.floor(Math.random() * 1000 - 500);
-
-      const doubleRand = Math.random();
-      const randZ = Math.floor(doubleRand * 1000 - 500);
-
-      const radius = Math.floor(doubleRand * (60) + 10);
-      const octahedronsGeometry = new THREE.OctahedronBufferGeometry(radius, 0);
-      const octahedronsMesh = new THREE.Mesh(octahedronsGeometry, material);
-
-      octahedronsMesh.position.set(randX, randY, randZ);
-      octahedronsMesh.rotation.set(randX, randY, randZ);
-      this.octahedronsArray.push(octahedronsMesh);
-      this.scene.add(octahedronsMesh);
-    }
+  getMeshById(uuid: string){
+    return;
   }
 
-  private moveOctahedrons(): void{
-    for (let i = 0; i < this.TETRAHEDRON_COUNT; i++){
-      Math.cos(this.count / i + 25);
-      this.octahedronsArray[i].position.y += Math.cos(this.count / (i)) * (i % 5 + 1) * 0.2;
-      this.octahedronsArray[i].rotation.x += (i % 3 + 1) * 0.005;
-      this.octahedronsArray[i].rotation.y += (i % 3 + 1) * 0.001;
-    }
+  deleteHumanMeshes(){
+
+  }
+
+  makeNewHumanMesh(x: number, y: number, z: number): number{
+    const material = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      flatShading: true
+    });
+    const radius = 40;
+    const octahedronsGeometry = new THREE.TetrahedronBufferGeometry(radius, 0);
+    const octahedronMesh = new THREE.Mesh(octahedronsGeometry, material);
+
+    octahedronMesh.position.set(x, y, z);
+    octahedronMesh.rotation.set(x, y, z);
+    this.octahedronsArray.push(octahedronMesh);
+    this.scene.add(octahedronMesh);
+    return octahedronMesh.id;
+  }
+
+  drawLineBetweenHumans(human1: THREE.Mesh, human2: THREE.Mesh){
+    
   }
 
   private onWindowResize(): void {
@@ -140,7 +110,6 @@ export class SimulationEngineService implements OnDestroy {
   public resize(): void {
     const width = window.innerWidth;
     const height = window.innerHeight;
-
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize( width, height );
@@ -164,13 +133,12 @@ export class SimulationEngineService implements OnDestroy {
   
     }
     */
+
     for(let mesh of this.octahedronsArray){
       const intersects = this.raycaster.intersectObject( mesh );
       const meshMaterial = mesh.material as THREE.MeshStandardMaterial;
       if ( intersects.length > 0 ) {
         meshMaterial.color = new THREE.Color(0,0,0);
-        
-        console.log(mesh);
         //const intersect = intersects[ 0 ];
       } else {
         //meshMaterial.color = new THREE.Color(0xffffff);

@@ -3,7 +3,7 @@ import { LineChartData } from '@shared/models/chart-data-line';
 import { PieChartData } from '@shared/models/chart-data-pie';
 import { Human } from '@shared/models/human.model';
 import { SimulationOptions } from '@shared/models/simulation-options.model';
-import { Simulation2d } from '@shared/models/simulation2d';
+import { Simulation2d } from '@shared/models/simulation-2d';
 import { DailyStatistics } from '@shared/models/statistics-day';
 import { SimulationsSavedService } from '@shared/services/simulations-saved.service';
 
