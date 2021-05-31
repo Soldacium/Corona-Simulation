@@ -36,23 +36,20 @@ export class OptionsComponent implements OnInit {
     infectionSpreadDistance: 500
   };
 
-
-
   ngOnInit(): void {
     this.initOptions();
   }
 
   initOptions(): void{
-    window.addEventListener("keypress", (key: KeyboardEvent) => {
-      if(key.code === "Space"){
+    window.addEventListener('keypress', (key: KeyboardEvent) => {
+      if (key.code === 'Space'){
         this.pauseSimulation ? this.resume() : this.pause();
       }
-    })
+    });
   }
 
   changeOptionsVisibility(): void{
     this.hideOptions = !this.hideOptions;
-    // this.hideOptionsEmitter.emit(this.hideOptions);
   }
 
   start(): void{

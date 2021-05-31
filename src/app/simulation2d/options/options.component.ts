@@ -83,10 +83,4 @@ export class OptionsComponent implements OnInit {
     this.simulationService.startSimulation();
   }
 
-  saveSimulation(): void{
-
-  }
-
-
-
 }

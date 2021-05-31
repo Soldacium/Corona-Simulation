@@ -121,7 +121,6 @@ export class SimulationService {
     this.chartData[1].series = [];
     this.chartData[2].series = [];
     this.chartData[3].series = [];
-
     this.LineChartDataEmmiter.emit([...this.chartData]);
   }
 

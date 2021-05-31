@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Human3d } from '@shared/models/human3d.model';
+import { Human3d } from '@shared/models/human-3d.model';
 import { Simulation2d } from '@shared/models/simulation-2d';
 import { DailyStatistics } from '@shared/models/statistics-day';
 import { SimulationsSavedService } from '@shared/services/simulations-saved.service';
@@ -53,7 +53,23 @@ export class SimulationService {
     this.pauseSimulation = true;
     this.dailyStats = [];
     this.population = [];
+    this.simulationEngine.reset();
     this.simulationDays = 0;
+
+    this.makePopulation();
+    this.makePopulationConnections();
+    this.makePopulationInfected();
+
+    const day1 = {
+        healthy: this.options.populationSize - this.options.startingInfected,
+        infected: this.options.startingInfected,
+        dead: 0,
+        immune: 0
+    };
+    this.dailyStats.push(day1);
+  }
+
+  private makePopulation(): void{
     for (let i = 0; i < this.options.populationSize; i++){
       const x = Math.random() * this.options.populationSpread - this.options.populationSpread / 2;
       const y = Math.random() * this.options.populationSpread - this.options.populationSpread / 2;
@@ -70,41 +86,36 @@ export class SimulationService {
             z,
         },
         spreads: [],
-        meshId: this.simulationEngine.makeNewHumanMesh(x,y,z),
+        meshId: this.simulationEngine.makeNewHumanMesh(x, y, z),
         id: i,
         nearbyHumansIds: []
       });
     }
+  }
 
+  private makePopulationConnections(): void{
     this.population.forEach(human => {
       this.population.forEach(anotherHuman => {
-        if(anotherHuman === human){
+        if (anotherHuman === human){
           return;
         }
         const distance = Math.sqrt(
-          Math.pow(human.position.x - anotherHuman.position.x,2) +
-          Math.pow(human.position.y - anotherHuman.position.y,2) +
-          Math.pow(human.position.z - anotherHuman.position.z,2));
-        if(distance < this.options.infectionSpreadDistance && !anotherHuman.nearbyHumansIds.includes(human.id)){
+          Math.pow(human.position.x - anotherHuman.position.x, 2) +
+          Math.pow(human.position.y - anotherHuman.position.y, 2) +
+          Math.pow(human.position.z - anotherHuman.position.z, 2));
+        if (distance < this.options.infectionSpreadDistance && !anotherHuman.nearbyHumansIds.includes(human.id)){
           human.nearbyHumansIds.push(anotherHuman.id);
           anotherHuman.nearbyHumansIds.push(human.id);
         }
       });
     });
+  }
 
-    console.log(this.population);
-
+  private makePopulationInfected(): void{
     for (let i = 0; i < this.options.startingInfected; i++){
       this.population[i].isInfected = true;
+      // this.simulationEngine.changeMeshColor(this.population[0].meshId,this.simulationEngine.colors.infected);
     }
-
-    const day1 = {
-        healthy: this.options.populationSize - this.options.startingInfected,
-        infected: this.options.startingInfected,
-        dead: 0,
-        immune: 0
-    };
-    this.dailyStats.push(day1);
   }
 
   async startSimulation(): Promise<void>{
@@ -117,7 +128,6 @@ export class SimulationService {
   }
 
   private nextDay(): void{
-    const previousDay = this.dailyStats[this.dailyStats.length - 1];
     const today = {...this.dailyStats[this.dailyStats.length - 1]};
 
     this.population.forEach(human => {
@@ -129,9 +139,9 @@ export class SimulationService {
         human.isAlive = false;
         today.dead += 1;
         today.infected -= 1;
-        this.simulationEngine.changeMeshColor(human.meshId,this.simulationEngine.colors.dead);
+        this.simulationEngine.changeMeshColor(human.meshId, this.simulationEngine.colors.dead);
         human.spreads.forEach(spread => {
-          this.simulationEngine.hideLine(spread.lineId)
+          this.simulationEngine.hideLine(spread.lineId);
         });
         return;
       }
@@ -140,19 +150,19 @@ export class SimulationService {
         human.isImmune = true;
         today.immune += 1;
         today.infected -= 1;
-        this.simulationEngine.changeMeshColor(human.meshId,this.simulationEngine.colors.immune);
+        this.simulationEngine.changeMeshColor(human.meshId, this.simulationEngine.colors.immune);
         human.spreads.forEach(spread => {
-          this.simulationEngine.hideLine(spread.lineId)
+          this.simulationEngine.hideLine(spread.lineId);
         });
       }
 
       if (human.isInfected){
         human.timeInfected += 1;
         human.nearbyHumansIds.forEach(nearbyHumanId => {
-          const nearbyHuman = this.population[nearbyHumanId]
-          if(Math.random() < this.options.infectionRate && !nearbyHuman.isInfected){
+          const nearbyHuman = this.population[nearbyHumanId];
+          if (Math.random() < this.options.infectionRate && !nearbyHuman.isInfected){
             const lineId = this.simulationEngine.drawLineBetweenMeshes(human.meshId, nearbyHuman.meshId);
-            human.spreads.push({lineId, humanId: nearbyHuman.id})
+            human.spreads.push({lineId, humanId: nearbyHuman.id});
             today.infected += 1;
             nearbyHuman.isInfected = true;
           }
@@ -162,7 +172,6 @@ export class SimulationService {
 
     this.simulationDays += 1;
     this.dailyStats.push(today);
-    console.log(this.dailyStats);
   }
 
   saveSimulation(): void{
@@ -184,7 +193,6 @@ export class SimulationService {
     };
   }
 
-  // can be optimised
   /*
   setActiveSimulation(simulation: Simulation2d): void{
     simulation.data.forEach((el) => {

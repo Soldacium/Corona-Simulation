@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { Injectable, ElementRef, OnDestroy, NgZone } from '@angular/core';
 import { MeshPhongMaterial, Vector3 } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import Delaunator from 'delaunator';
 // import ImprovedNoise from './functions/improved-noise';
 
@@ -9,24 +9,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export class SimulationEngineService implements OnDestroy {
   private renderer!: THREE.WebGLRenderer;
   private raycaster!: THREE.Raycaster;
-  private pointer!: THREE.Vector2;
   private camera!: THREE.PerspectiveCamera;
   private scene!: THREE.Scene;
   private frameId = 0;
-
   mouse = new THREE.Vector2(0, 0);
-  private windowHalfX = window.innerWidth / 2;
-  private windowHalfY = window.innerHeight / 2;
-  count = 0;
-
-  private SCREEN_WIDTH = window.innerWidth;
-  private SCREEN_HEIGHT = window.innerHeight;
-
   MOVE_SPD = 0.5;
-
-  private textureLoader = new THREE.TextureLoader();
-
   private humanArray: THREE.Mesh[] = [];
+  private lineArray: THREE.Line[] = [];
   private controls!: OrbitControls;
 
   colors = {
@@ -34,9 +23,7 @@ export class SimulationEngineService implements OnDestroy {
     healthy: 0xd9d9d9,
     immune: 0x66ccff,
     dead: 0x444444
-  }
-
-
+  };
   animationSlowdown = 30;
 
   public constructor(private ngZone: NgZone) {}
@@ -54,13 +41,10 @@ export class SimulationEngineService implements OnDestroy {
     this.camera.position.x = 1000;
 
     this.scene = new THREE.Scene();
-
     const light = new THREE.AmbientLight( 0xeeeeee, 1 );
     this.scene.add( light );
-
     const pointLight = new THREE.PointLight(0xffffff, 300, 300);
-    this.scene.add(pointLight)
-
+    this.scene.add(pointLight);
     this.scene.background = new THREE.Color(0xFFFFFF);
 
     this.renderer = new THREE.WebGLRenderer({
@@ -69,13 +53,9 @@ export class SimulationEngineService implements OnDestroy {
     });
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.setSize( window.innerWidth, window.innerHeight );
-
     this.setupCameraMovement();
     this.setupMouse();
-
     this.raycaster = new THREE.Raycaster();
-    this.pointer = new THREE.Vector2();
-
     this.renderer.setClearColor('white');
     this.animate();
   }
@@ -88,11 +68,18 @@ export class SimulationEngineService implements OnDestroy {
   }
 
   setupCameraMovement(): void{
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
   }
 
-  deleteHumanMeshes(){
-
+  reset(): void{
+    this.humanArray.forEach(mesh => {
+      this.scene.remove(mesh);
+    });
+    this.lineArray.forEach(mesh => {
+      this.scene.remove(mesh);
+    });
+    this.humanArray = [];
+    this.lineArray = [];
   }
 
   makeNewHumanMesh(x: number, y: number, z: number): number{
@@ -121,7 +108,6 @@ export class SimulationEngineService implements OnDestroy {
     meshMaterial2.color = new THREE.Color(this.colors.infected);
 
     return this.drawLineBetweenPoints(mesh1.position, mesh2.position, 25);
-
   }
 
   drawLineBetweenPoints(coords1: THREE.Vector3, coords2: THREE.Vector3, split: number): number{
@@ -130,47 +116,40 @@ export class SimulationEngineService implements OnDestroy {
     const stepZ = (coords2.z - coords1.z) / split;
     const points: Vector3[] = [];
 
-    const condition = coords1.x < coords2.x ? 1 : -1 
+    const condition = coords1.x < coords2.x ? 1 : -1;
     for (let x = coords1.x, y = coords1.y, z = coords1.z; x * condition < coords2.x * condition; x += stepX, y += stepY, z += stepZ){
-      points.push(new THREE.Vector3(x,y,z));
+      points.push(new THREE.Vector3(x, y, z));
     }
     const material = new THREE.LineBasicMaterial( { color: 0xff0033 } );
     const geometry = new THREE.BufferGeometry().setFromPoints( points );
-    geometry.setDrawRange(0,0);
+    geometry.setDrawRange(0, 0);
     const line = new THREE.Line( geometry, material);
-    this.revealMoreLine(line,0,split);
+    this.lineArray.push(line);
+    this.revealMoreLine(line, 0, split);
     this.scene.add(line);
 
     return line.id;
   }
 
-  revealMoreLine(line: THREE.Line,revealed: number, max: number): void{
-    if(revealed < max){
+  revealMoreLine(line: THREE.Line, revealedParts: number, max: number): void{
+    if (revealedParts < max){
       this.wait(20).then(res => {
-        revealed += 1;
-        line.geometry.setDrawRange(0, revealed);
-        this.revealMoreLine(line,revealed,max);
+        revealedParts += 1;
+        line.geometry.setDrawRange(0, revealedParts);
+        this.revealMoreLine(line, revealedParts, max);
       });
     }
   }
 
-  hideLine(lineId: number){
+  hideLine(lineId: number): void{
     const line = this.scene.getObjectById(lineId) as THREE.Line;
-    line.geometry.setDrawRange(0,0);
+    line.geometry.setDrawRange(0, 0);
   }
 
-  changeMeshColor(meshId: number, color: number){
+  changeMeshColor(meshId: number, color: number): void{
     const mesh = this.scene.getObjectById(meshId) as THREE.Mesh;
     const meshMaterial = mesh.material as THREE.MeshStandardMaterial;
     meshMaterial.color = new THREE.Color(color);
-  }
-
-  private onWindowResize(): void {
-    this.windowHalfX = window.innerWidth / 2;
-    this.windowHalfY = window.innerHeight / 2;
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
 
   public resize(): void {
@@ -189,6 +168,7 @@ export class SimulationEngineService implements OnDestroy {
 
     this.raycaster.setFromCamera( this.mouse, this.camera );
 
+    /*
     for (const mesh of this.humanArray){
       const intersects = this.raycaster.intersectObject( mesh );
       const meshMaterial = mesh.material as THREE.MeshStandardMaterial;
@@ -197,9 +177,8 @@ export class SimulationEngineService implements OnDestroy {
       } else {
       }
     }
-
+    */
     this.camera.lookAt(this.scene.position);
-    this.count += 0.1;
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -216,13 +195,6 @@ export class SimulationEngineService implements OnDestroy {
         this.resize();
       });
     });
-  }
-
-  distanceBetweenPoints(point1: THREE.Vector3, point2: THREE.Vector3){
-    return Math.sqrt(
-      Math.pow(point1.x - point2.x, 2) +
-      Math.pow(point1.y - point2.y, 2) +
-      Math.pow(point1.z - point2.z, 2));
   }
 
   wait(ms: number): Promise < any > {

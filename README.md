@@ -46,7 +46,7 @@ Some of the components will be needing external help. "Front-end" server is buil
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. 
 
-Run `npm run startServer` for backend server. Note that you must first connect to your mongo database at `backend/app.js`
+Run `npm run startServer` for backend server. Note that you must first connect to your own mongo database at `backend/app.js` (keys.js)
 
 ## Build
 
