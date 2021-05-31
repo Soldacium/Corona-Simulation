@@ -1,4 +1,8 @@
 <main>
+    <div class="search">
+        <input type="text">
+        <img src="assets/icons/search.svg" alt="">
+    </div>
     <div class="simulation-wrap" *ngFor="let simulation of simulations; index as i">
         <div class="simulation"  [ngClass]="expandedSimulations.includes(i) ? 'expand': 'shrink'">
             <div class="thumbnail">
@@ -11,7 +15,7 @@
                     <button (click)="expandSimulation(i)">
                         <img src="assets/icons/expand.svg" alt="">
                     </button>
-                </div>          
+                </div>      
             </div>
             <div class="more">
                 <div class="option">

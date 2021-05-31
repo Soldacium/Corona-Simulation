@@ -1,10 +1,33 @@
 $borderRadius: 1rem;
+$borderColor: rgb(241, 241, 241);
 
 main{
     position: relative;
     display: flex;
     flex-direction: column;
     padding: 4rem 25%;
+}
+
+.search{
+    width: 100%;
+    position: relative;
+
+    input{
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1.3rem;
+        border-radius: 1rem;
+        border: 1px solid $borderColor;
+    }
+
+    img{
+        position: absolute;
+        height: 1.3rem;
+        top: 50%;
+        right: 1.5rem;
+        transform: translate(0,-50%);
+        pointer-events: none;
+    }
 }
 
 .simulation-wrap{
@@ -24,7 +47,7 @@ main{
     width: 100%;
     padding: 1rem 2rem;
     background-color: white;
-    border: 1px solid rgb(241, 241, 241);
+    border: 1px solid $borderColor;
     border-radius: $borderRadius;
     display: flex;
     flex-direction: column;
@@ -85,7 +108,7 @@ main{
                 border-radius: 0.3rem;
                 
                 &:hover{
-                    border-color: rgb(214, 214, 214);
+                    border-color: $borderColor;
                 }
                 img{
                     height: 1.3rem;

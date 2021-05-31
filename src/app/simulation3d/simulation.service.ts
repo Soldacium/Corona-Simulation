@@ -20,16 +20,16 @@ export class SimulationService {
 
   private options: SimulationOptions3d = {
     name: '',
-    populationSize: 1000,
-    startingInfected: 5,
-    infectionRate: 0.2,
+    populationSize: 500,
+    startingInfected: 3,
+    infectionRate: 0.01,
     mortalityRate: 0.2,
-    timeToRecover: 10,
+    timeToRecover: 15,
     timeToDeath: 9,
-    maxSimulationDays: 40,
-    simulationSlowdown: 100,
-    populationSpread: 5000,
-    infectionSpreadDistance: 50,
+    maxSimulationDays: 180,
+    simulationSlowdown: 1000,
+    populationSpread: 2000,
+    infectionSpreadDistance: 400,
   };
 
   private dailyStats: DailyStatistics[] = [
@@ -69,15 +69,34 @@ export class SimulationService {
             y,
             z,
         },
-        meshId: this.simulationEngine.makeNewHumanMesh(x,y,z)
+        spreads: [],
+        meshId: this.simulationEngine.makeNewHumanMesh(x,y,z),
+        id: i,
+        nearbyHumansIds: []
       });
     }
+
+    this.population.forEach(human => {
+      this.population.forEach(anotherHuman => {
+        if(anotherHuman === human){
+          return;
+        }
+        const distance = Math.sqrt(
+          Math.pow(human.position.x - anotherHuman.position.x,2) +
+          Math.pow(human.position.y - anotherHuman.position.y,2) +
+          Math.pow(human.position.z - anotherHuman.position.z,2));
+        if(distance < this.options.infectionSpreadDistance && !anotherHuman.nearbyHumansIds.includes(human.id)){
+          human.nearbyHumansIds.push(anotherHuman.id);
+          anotherHuman.nearbyHumansIds.push(human.id);
+        }
+      });
+    });
+
+    console.log(this.population);
 
     for (let i = 0; i < this.options.startingInfected; i++){
       this.population[i].isInfected = true;
     }
-
-    console.log(this.population)
 
     const day1 = {
         healthy: this.options.populationSize - this.options.startingInfected,
@@ -100,14 +119,6 @@ export class SimulationService {
   private nextDay(): void{
     const previousDay = this.dailyStats[this.dailyStats.length - 1];
     const today = {...this.dailyStats[this.dailyStats.length - 1]};
-    let toBeInfected = 0;
-    for (let i = 0; i < previousDay.infected; i++){
-      let minimum = Math.floor(this.options.infectionRate);
-      if (Math.random() < this.options.infectionRate - minimum){
-        minimum += 1;
-      }
-      toBeInfected += minimum;
-    }
 
     this.population.forEach(human => {
       if (!human.isAlive || human.isImmune){
@@ -118,6 +129,10 @@ export class SimulationService {
         human.isAlive = false;
         today.dead += 1;
         today.infected -= 1;
+        this.simulationEngine.changeMeshColor(human.meshId,this.simulationEngine.colors.dead);
+        human.spreads.forEach(spread => {
+          this.simulationEngine.hideLine(spread.lineId)
+        });
         return;
       }
 
@@ -125,21 +140,29 @@ export class SimulationService {
         human.isImmune = true;
         today.immune += 1;
         today.infected -= 1;
-      }
-
-      if (!human.isImmune && !human.isInfected && toBeInfected > 0){
-        human.isInfected = true;
-        today.healthy -= 1;
-        today.infected += 1;
-        toBeInfected -= 1;
+        this.simulationEngine.changeMeshColor(human.meshId,this.simulationEngine.colors.immune);
+        human.spreads.forEach(spread => {
+          this.simulationEngine.hideLine(spread.lineId)
+        });
       }
 
       if (human.isInfected){
         human.timeInfected += 1;
+        human.nearbyHumansIds.forEach(nearbyHumanId => {
+          const nearbyHuman = this.population[nearbyHumanId]
+          if(Math.random() < this.options.infectionRate && !nearbyHuman.isInfected){
+            const lineId = this.simulationEngine.drawLineBetweenMeshes(human.meshId, nearbyHuman.meshId);
+            human.spreads.push({lineId, humanId: nearbyHuman.id})
+            today.infected += 1;
+            nearbyHuman.isInfected = true;
+          }
+        });
       }
     });
+
     this.simulationDays += 1;
     this.dailyStats.push(today);
+    console.log(this.dailyStats);
   }
 
   saveSimulation(): void{

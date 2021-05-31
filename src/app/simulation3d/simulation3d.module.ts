@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './routes-simulation3d';
 import { SimulationDisplayComponent } from './simulation-display/simulation-display.component';
 import { OptionsComponent } from './options/options.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { OptionsComponent } from './options/options.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ]
 })

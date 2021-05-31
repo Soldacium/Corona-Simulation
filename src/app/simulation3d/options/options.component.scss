@@ -1,0 +1,160 @@
+$containerWidth: 22vw;
+$containerTransition: 0.4s ease;
+
+main{
+    background-color: rgb(34, 34, 34);
+    height: 60vh;
+    width: $containerWidth;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
+    position: absolute;
+    transition: $containerTransition;
+    left: 0;
+    bottom: 20vh;
+    overflow: hidden;
+    border-radius: 0 1rem 1rem 0;
+
+    &.hide{
+        left: -$containerWidth;
+        .options-inputs{
+            opacity: 0;
+            overflow: hidden;
+        }
+    }
+
+    .options-inputs{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 6rem 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        opacity: 1;
+        transition: $containerTransition;
+
+        app-input-text{
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        app-input-range{
+            position: relative;
+            width: 100%;
+
+            .input-label{
+                display: flex;
+                align-items: center;
+
+                img{
+                    height: 1rem;
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+.button-hide{
+    position: absolute;
+    top: 50%;
+    left: $containerWidth;
+    height: 8rem;
+    width: 2rem;
+    transform: translate(0, -50%);
+    background-color: rgb(53, 53, 53);
+    transition: $containerTransition;
+    transition-delay: 0;
+    cursor: pointer;
+    border-radius: 0 0.3rem 0.3rem 0 ;
+    border: none;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.329);
+
+    &.hide{
+        left: 0;
+        div{
+            &:nth-of-type(1){
+                height: 3rem;
+            }
+
+            &:nth-of-type(2){
+                height: 4rem;
+            } 
+        }
+    }
+
+    div{
+        width: 2px;
+        height: 4rem;
+        background-color: rgb(172, 172, 172);
+        margin: 2px;
+        border-radius: 1px;
+        transition: 0.2s ease;
+
+        &:nth-of-type(1){
+            height: 4rem;
+        }
+
+        &:nth-of-type(2){
+            height: 3rem;
+        }
+    }
+}
+
+.buttons{
+    position: absolute;
+    width: 20rem;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 4rem;
+    z-index: 100;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.329);
+    border-radius: 0.5rem 0.5rem 0 0;
+    overflow: hidden;
+
+    >div{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            height: 1rem;
+        }
+
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            transition: 0.1s ease;
+            height: 100%;
+
+            &:hover{
+                filter: invert(10%);
+                cursor: pointer;
+            }
+
+
+        }
+    }
+
+    .button-start,.button-reset,.button-save{
+        flex: 1 1;
+    }
+
+    .button-resume,.button-pause{
+        flex: 5 1;
+    }
+
+    .button-reset{background-color: var(--colorAccent1);}
+    .button-save{background-color: rgb(0, 195, 255);}
+    .button-resume{background-color: rgb(123, 255, 47);}
+    .button-pause{background-color: rgb(255, 196, 0);}
+}

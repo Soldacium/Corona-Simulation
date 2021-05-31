@@ -8,4 +8,11 @@ export interface Human3d extends Human {
         z: number
     };
     meshId: number;
+    id: number;
+    nearbyHumansIds: number[];
+    spreads: {
+        lineId: number,
+        humanId: number
+    }[];
+
 }

@@ -1,1 +1,64 @@
-<button (click)="startSimulation()">Start new</button>
+<div class="buttons">
+    <div *ngIf="!simulationLocked">
+       <button appButtonFlat class="button-start" (click)="start()">Start</button> 
+    </div>
+    <div class="buttons-playing" *ngIf="simulationLocked">
+        <button class="button-pause" *ngIf="!pauseSimulation && currentDay !== options.maxSimulationDays" (click)="pause()">
+            <img src="assets/icons/pause.svg" alt=""></button>
+        <button class="button-resume" *ngIf="pauseSimulation" (click)="resume()">
+            <img src="assets/icons/resume.svg" alt="">
+        </button>
+        <button class="button-reset" (click)="reset()">
+            <img src="assets/icons/reset.svg" alt="">
+        </button>
+        <button class="button-save" *ngIf="currentDay === options.maxSimulationDays" (click)="save()">
+            <img src="assets/icons/save.svg" alt="">
+        </button>
+    </div>       
+</div>
+
+<button class="button-hide" (click)="changeOptionsVisibility()" [ngClass]="hideOptions ? 'hide' : 'visible'">
+    <div></div>
+    <div></div>
+</button>
+
+<main [ngClass]="hideOptions ? 'hide' : 'visible'">
+    
+    <div class="options-inputs">
+        <app-input-text [label]="'Simulation name'" [placeholder]="'Simulation name'" [(inputModel)]="options.name" [darkMode]="true">
+
+        </app-input-text>
+        <app-input-range [icon]="'assets/icons/population.svg'" [disabled]="simulationLocked" [min]="10" [max]="10000" [(inputModel)]="options.populationSize">
+            Population size  
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/virus.svg'" [disabled]="simulationLocked" [min]="1" [max]="options.populationSize/2" [(inputModel)]="options.startingInfected">
+            Starting infected
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/share.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="0.1" [max]="10" [step]="0.1" [(inputModel)]="options.infectionRate">
+            Infection rate
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/skull.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="0.01" [max]="1" [step]="0.01" [(inputModel)]="options.mortalityRate">
+            Mortality Rate
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/tomb.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="1" [max]="60" [(inputModel)]="options.timeToDeath">
+            Time to possible death
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/heart.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="1" [max]="60" [(inputModel)]="options.timeToRecover">
+            Time to recover
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/calendar.svg'" [disabled]="simulationLocked" [min]="10" [max]="360" [(inputModel)]="options.maxSimulationDays">
+            Simulation time
+        </app-input-range>
+        <app-input-range [icon]="'assets/icons/stopwatch.svg'" [disabled]="simulationLocked && !asyncChanges" [min]="10" [max]="3000" [(inputModel)]="options.simulationSlowdown">
+            Simulation slowdown
+        </app-input-range>
+
+        <app-checkbox
+        [checked]="asyncChanges"
+        [disabled]="simulationLocked"
+        (onchange)="asyncChanges = !asyncChanges">
+            Async modifications
+        </app-checkbox>
+    </div>
+</main>
+

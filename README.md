@@ -14,23 +14,22 @@ while giving them a chance to recover.
 This kind of simulation is called '2d' but in reality it should be dubbed 'pure statistics simulation'. Here we have most options and choices about how the outbreak will play out. We have the option to see infected by day, the timeline and other relevant statistics given user input.
 
 #### Simulation3d
-Here we'll have a bit less options but much more pleasing display of outbreak to the eye. Three-diemensionally spread dots, each representing human with his own properties. As the time will progress the dots will change colors and connect to represent current state of things.
-
+Here we'll have a bit less options but much more pleasing display of outbreak. Three-diemensionally spread dots, each representing human with his own properties. As the time will progress the dots will change colors and connect to represent current state of things.
 
 
 ## Project structure
 
 #### 1. Modules
-Project is split into modules, one for each branch of math. This is done for two purpouses: to keep code cleaner and more logical, and to have them **lazy loaded**. Given the project's size and usage of **Three.js** and **Canvas2d**, it'd be straining for users' computers to load every big module at once.
+Project is split into modules, one for each branch page context. This is done for two purpouses: to keep code cleaner and more logical, and to have them **lazy loaded**. Given the project's size and usage of **Three.js** and **Canvas2d**, it'd be straining for users' computers to load every big module at once. Of course, one could argue that projects is too small as of now to justify complicating it with modules, and sure, it could be done without them, but I plan to develop this app in the future, so right now, this is investment.
 
 #### 2. Components
-Each module is split into components, one for each concept. This keeps it easy to navigate around. Additionaly, every concept, in addition to explaining itself when viewing website, should have README attatched basically repeating what this component does and why.
+Each module is split into components, one for each purpose. This keeps it easy to navigate around.
 
 #### 3. Shared
-Each component will be using reusable parts of the code, shared components, directives, models and guards. Examples of such would be *explanation.component* or *button-normal.component*, used to keep the styling of each module and component as similar as possible. Directives are mostly pure styling, like those used for buttons (*button-flat.directive.ts*).
+Each component will be using reusable parts of the code, shared components, directives, models and guards. Examples of such would be *button-three.component* or *input-range.component*, used to keep the styling of each module and component as similar as possible. Directives are mostly pure styling, like those used for buttons (*button-flat.directive.ts*).
 
 #### 4. Services
-Some of the components will be needing external help. As such, they will be communicating to our *Python/Flask API* via *HTTP protocols*. "Front-end" server is built using *node.js and express*.
+Some of the components will be needing external help. "Front-end" server is built using *node.js and express*.
 
 #### 5. External libraries used
 - three.js
@@ -41,11 +40,7 @@ Some of the components will be needing external help. As such, they will be comm
 1. Project general design
 
 2. Color schema
-#272727
-#636363
-#F3F3F3
-#FF0090
-#00FFEE
+// TO BE ADDED
 
 ## Running locally
 
@@ -59,7 +54,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## TO BE DONE
 - remove sharedModule from app.module, custom buttons for welcome page
-- set up backend
-- set up loading and changing existing simulations
-- 3d simulations
-- saved page
+- 3d simulations finish
+- 3d simulations save and load
+- CLEANUP

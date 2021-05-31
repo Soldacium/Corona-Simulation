@@ -25,6 +25,9 @@ export class InputRangeComponent implements OnInit {
   @Input()
   disabled = false;
 
+  @Input()
+  darkMode = false;
+
   @Output() onclick:
   EventEmitter<Event> = new EventEmitter<Event>();
 
