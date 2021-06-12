@@ -20,9 +20,9 @@ export class SimulationEngineService implements OnDestroy {
 
   colors = {
     infected: 0xff0066,
-    healthy: 0xd9d9d9,
+    healthy: 0x444444,
     immune: 0x66ccff,
-    dead: 0x444444
+    dead: 0xd9d9d9
   };
   animationSlowdown = 30;
 
@@ -85,8 +85,7 @@ export class SimulationEngineService implements OnDestroy {
   makeNewHumanMesh(x: number, y: number, z: number): number{
     const material = new THREE.MeshStandardMaterial({
       color: this.colors.healthy,
-      flatShading: true,
-      wireframe: true
+      
     });
     const radius = 12;
     const humanGeometry = new THREE.TetrahedronBufferGeometry(radius, 0);
@@ -168,16 +167,14 @@ export class SimulationEngineService implements OnDestroy {
 
     this.raycaster.setFromCamera( this.mouse, this.camera );
 
-    /*
     for (const mesh of this.humanArray){
       const intersects = this.raycaster.intersectObject( mesh );
       const meshMaterial = mesh.material as THREE.MeshStandardMaterial;
       if ( intersects.length > 0 ) {
-        // meshMaterial.color = new THREE.Color(0, 0, 0);
+        meshMaterial.color = new THREE.Color('red');
       } else {
       }
     }
-    */
     this.camera.lookAt(this.scene.position);
     this.renderer.render(this.scene, this.camera);
   }
