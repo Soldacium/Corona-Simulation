@@ -3,15 +3,15 @@ $containerTransition: 0.4s ease;
 
 main{
     background-color: rgb(34, 34, 34);
-    height: 60vh;
+    height: 100vh;
     width: $containerWidth;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
     position: absolute;
     transition: $containerTransition;
     left: 0;
-    bottom: 20vh;
+    bottom: 0vh;
     overflow: hidden;
-    border-radius: 0 1rem 1rem 0;
+    // border-radius: 0 1rem 1rem 0;
 
     &.hide{
         left: -$containerWidth;
